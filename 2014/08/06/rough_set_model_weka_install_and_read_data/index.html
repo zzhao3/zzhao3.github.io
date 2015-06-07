@@ -1,0 +1,555 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据 | Z-Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Zongyuan Zhao">
+    
+
+    
+    <meta name="description" content="摘要本文是Rough set model粗糙集理论系列第一篇文章，主要介绍如何在Eclipse中安装weka资源包，以及读取arff数据
+Rough Set model简介有关Rough Set的英文介绍，请移步Wikipedia。这里说的比较详细，但有的地方可能不够准确。比如例子中，O1和O2是重复的，因此在后面解释的时候，只能用information table而不用集合的概念（集合中的元素必">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据">
+<meta property="og:url" content="http://zhaozongyuan.com/2014/08/06/rough_set_model_weka_install_and_read_data/index.html">
+<meta property="og:site_name" content="Z-Zone">
+<meta property="og:description" content="摘要本文是Rough set model粗糙集理论系列第一篇文章，主要介绍如何在Eclipse中安装weka资源包，以及读取arff数据
+Rough Set model简介有关Rough Set的英文介绍，请移步Wikipedia。这里说的比较详细，但有的地方可能不够准确。比如例子中，O1和O2是重复的，因此在后面解释的时候，只能用information table而不用集合的概念（集合中的元素必">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/4aa86401gw1ejjb31kxhzj20gc08kdgh.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/4aa86401gw1ejjdasymw0j20dy0ad3zl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/4aa86401gw1ejjdp8cjz8j20m60gjgnz.jpg">
+<meta property="og:updated_time" content="2015-06-06T04:33:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据">
+<meta name="twitter:description" content="摘要本文是Rough set model粗糙集理论系列第一篇文章，主要介绍如何在Eclipse中安装weka资源包，以及读取arff数据
+Rough Set model简介有关Rough Set的英文介绍，请移步Wikipedia。这里说的比较详细，但有的地方可能不够准确。比如例子中，O1和O2是重复的，因此在后面解释的时候，只能用information table而不用集合的概念（集合中的元素必">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Z-Zone" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/cool.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Z-Zone" title="Z-Zone"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Z-Zone">Z-Zone</a></h1>
+				<h2 class="blog-motto">Zongyuan’s Space</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About &amp; Contact</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zhaozongyuan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/06/rough_set_model_weka_install_and_read_data/" title="Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据" itemprop="url">Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Zongyuan Zhao" target="_blank" itemprop="author">Zongyuan Zhao</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-06T04:56:29.000Z" itemprop="datePublished"> Published 2014-08-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rough_Set_model简介"><span class="toc-number">2.</span> <span class="toc-text">Rough Set model简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#weka简介"><span class="toc-number">3.</span> <span class="toc-text">weka简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Eclipse中安装weka资源包"><span class="toc-number">4.</span> <span class="toc-text">在Eclipse中安装weka资源包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#读取arff数据"><span class="toc-number">5.</span> <span class="toc-text">读取arff数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instances类"><span class="toc-number">6.</span> <span class="toc-text">Instances类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">7.</span> <span class="toc-text">参考文献</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="摘要">摘要</h2><p>本文是Rough set model粗糙集理论系列第一篇文章，主要介绍如何在Eclipse中安装weka资源包，以及读取arff数据</p>
+<h2 id="Rough_Set_model简介">Rough Set model简介</h2><p>有关Rough Set的英文介绍，请移步<a href="http://en.wikipedia.org/wiki/Rough_set" target="_blank" rel="external">Wikipedia</a>。这里说的比较详细，但有的地方可能不够准确。比如例子中，<em>O1</em>和<em>O2</em>是重复的，因此在后面解释的时候，只能用<em>information table</em>而不用<em>集合</em>的概念（集合中的元素必须是互异的。以后的研究中涉及到求集合的度（Card），Wiki中的这个例子可能造成一定的误解）。</p>
+<p>中文一般将Rough Set翻译为<a href="http://baike.baidu.com/view/452607.htm" target="_blank" rel="external">粗糙集（百度百科）</a>或<a href="http://zh.wikipedia.org/wiki/%E7%B2%97%E9%9B%86%E5%90%88" target="_blank" rel="external">粗集合（维基百科）</a>。</p>
+<p>除了Rough Set之外，Rough Set Model或Rough Set Theory也经常用到。在搜索相关文献时尽量采用Rough Set作为关键词。</p>
+<h2 id="weka简介">weka简介</h2><p><a href="http://www.cs.waikato.ac.nz/ml/weka/" target="_blank" rel="external">Weka</a>是新西兰Waikato大学开发的一款用于数据挖掘（Data Mining）的开源软件包。安装文件与开发包均可在其网站<a href="http://www.cs.waikato.ac.nz/ml/weka/downloading.html" target="_blank" rel="external">下载</a>。目前支持Windows，Mac与Linux系统，基于Java开发。由于版本众多，请各位自行查看下载。</p>
+<p>Weka的功能不如Matlab强大，但是优点在于其完全开源，并且方便进行拓展开发。博主选用Weka另一个原因是厌倦了C++，尤其是C++对开发环境的挑剔（我这种小白经常换一台电脑，C++代码就挂掉了，然后要用一天的时间重新配置环境）。</p>
+<p>在这里再贴出另一个非常常用的Rough Set专业开源程序<a href="http://www.lcb.uu.se/tools/rosetta/" target="_blank" rel="external">Rosetta</a>，基于C++开发，目前许多有关Rough Set的研究学者都在使用。</p>
+<p>对于只想要应用weka的情况来说，能够使用Weka Explorer就足够了，这是一个界面化的数据挖掘工具，提供了非常多的常用功能以及机器学习模型。并且有相当多的中文教程可供参考。</p>
+<p>对于需要使用Weka提供的相关接口进行深入开发的情况，需要将Weka资源包导入Eclipse（大神当然也可以不使用集成开发环境），调用相关接口进行开发。Weka提供了相当多的接口，但是目前除了网站上提供的一个英文文档之外，相关学习资料不多。</p>
+<p>如果您想学习使用Weka，并且是一个代码和数据挖掘双料小白，博主推荐一本英文书：<a href="http://www.cs.waikato.ac.nz/ml/weka/book.html" target="_blank" rel="external">Data Mining: Practical Machine Learning Tools and Techniques</a>，博主看的是第二版，最新的第三版会多一些内容。</p>
+<p>当然还是那句话，如果你是大神，请提出宝贵意见！</p>
+<h2 id="在Eclipse中安装weka资源包">在Eclipse中安装weka资源包</h2><p>作者参照了网上许多相关教程，比较靠谱全面的一个是<a href="http://www.360doc.com/content/09/0413/17/23378_3119220.shtml" target="_blank" rel="external">何佳珍</a>写的（可惜我找不到原始链接了，实在抱歉）。请直接点击链接查看。</p>
+<p>对于不熟悉Eclipse的小白来说，这里有几个需要注意的地方。</p>
+<ol>
+<li>在第二步中（图片2），请注意是在Package Explorer中右键执行的。</li>
+<li>添加Weka源文件的时候，可能有些许不同。我使用的Eclipse版本为Kepler Release，在点击“Attach Source”之后，出现<br><img src="http://ww1.sinaimg.cn/mw690/4aa86401gw1ejjb31kxhzj20gc08kdgh.jpg" alt=""></li>
+</ol>
+<p>然后点击External File来选择weka-src.jar的位置就可以了。</p>
+<h2 id="读取arff数据">读取arff数据</h2><p>所谓数据挖掘，当然是基于数据来说的，没有数据一切都是空谈。</p>
+<p>实验中遇到的数据分为两种：人造数据与现实采集数据。人造数据可以是随机产生，也可以是为了验证某些功能而编造出来。现实采集数据如果细分，可以有原始数据和生成数据两种，但本质上它们都是从现实中得到的数据。</p>
+<p>实验的第一步通常都是加载数据，这里，通过编写实现加载数据的功能，来验证Weka安装是否成功，也是以后代码的基础。（本人代码写的很烂，基本没有优化，如有好的建议，请通过邮件或者QQ联系本人，感激不尽！）</p>
+<ul>
+<li><p>什么是arff<br>arff是一种文件格式，并且该类型文件可以由MS Word打开。这种格式是Weka推荐的数据存储格式（吐槽：我真没觉得有什么优点……一点都不智能的说）。<br>arff文件中包含了所有数据信息，包括数据名称，数据项（Attribute或者Feature，本文以后都用Feature代替）名称，以及所有的数据（本文以后用Instance代替）。</p>
+</li>
+<li><p>编写数据文件<br>一般来说，数据首先需要存在一个特定文件中，才能被正确读取。Weka数据输入文件格式的复杂是经常被人吐槽的。这里，介绍比较简单的一种数据文件制作方法，该方法也是<a href="http://www.cs.waikato.ac.nz/ml/weka/book.html" target="_blank" rel="external">Data Mining书中</a>介绍的方法。</p>
+<ol>
+<li>首先，新建一个Excel文档。将数据以及数据信息放入其中。文件名为数据名称，第一行为Feature名称，从第二行开始输入数据（Instance），<strong>然后将文件保存为CSV格式</strong>（保存时可能提示该格式可能丢失一些符号，不用理他就行）。示例见下图。该数据会在以后的代码中用到。该数据是来源于参考文献 1 。<br><img src="http://ww1.sinaimg.cn/mw690/4aa86401gw1ejjdasymw0j20dy0ad3zl.jpg" alt=""></li>
+<li>打开Weka Explorer，点击Open File，先将类型选到csv，然后找到刚保存好的csv文件，点击open。<br><img src="http://ww1.sinaimg.cn/mw690/4aa86401gw1ejjdp8cjz8j20m60gjgnz.jpg" alt=""></li>
+<li>如果一切顺利，应该能看到刚编写的数据文件已经加载到了Weka中了。其实按照Weka自己说的，csv文件也是支持使用的。但是为了以后能够更方便的使用数据，建议将csv文件转换为arff文件。非常简单，只要点击右上角的save就可以了。保存的arff文件放入一个英文目录的文件夹，方便以后使用。我将文件放在D盘根目录下。</li>
+</ol>
+</li>
+<li><p>编写代码读取数据<br>首先，使用Java的IO读取arff文件</p>
+<pre><code><span class="keyword">File</span> inputFile = <span class="keyword">new</span> <span class="keyword">File</span>(<span class="string">"D:\\German.arff"</span>);
+</code></pre><p>然后，构建一个ArffLoader对象loader，并调用setFile方法，读取File对象</p>
+<pre><code>ArffLoader loader = new ArffLoader()<span class="comment">;</span>
+loader.setFile(inputFile)<span class="comment">;</span>
+</code></pre><p>调用ArffLoader的getDataSet()方法，将返回一个Instances类的对象<br>在Weka中，数据是存放在Instances类的对象中的，可以将Instances理解为一张数据表。下面一节将详细讨论Instances类。</p>
+<pre><code>Instances ins=loader.getDataSet()<span class="comment">;</span>
+</code></pre><p>至此，读取工作完毕，以后的代码都是围绕Instances来展开。当然不要忘记import相关的包</p>
+<pre><code><span class="preprocessor"><span class="keyword">import</span> weka.core.*;</span>
+<span class="preprocessor"><span class="keyword">import</span> weka.core.converters.*;</span>
+</code></pre><p>如果你想验证一下代码是否正确，可以将数据打印出来。Weka为Instances添加了print方法。</p>
+<pre><code>System.<span class="keyword">out</span>.<span class="keyword">print</span>(<span class="keyword">ins</span>);
+</code></pre><p>你将在控制台看到数据的构成，包括数据名称，Feature名称，以及各项数据。</p>
+</li>
+</ul>
+<h2 id="Instances类">Instances类</h2><p>Instances类是Weka中非常重要的一个类，它存储了整个数据表。这里来看一下几个重要的方法：</p>
+<ul>
+<li><p>构造函数<br>前面几个构造函数需要读取一个Java IO中的Reader，暂且放到一边；<br>下面就会发现一个拷贝构造函数</p>
+<pre><code><span class="keyword">public</span> Instances(<span class="comment">/* <span class="doctag">@non</span>_null@ */</span>Instances dataset)
+</code></pre><p>这个函数其实就是复制一份数据给新的Instances。由于Java在赋值时使用的是类似C++中引用的方式，如果直接对Instances对象使用赋值操作，新的Instances是原有Instances的一个别名，两者指向相同的数据区（请参照其他Java教程，或参看书[2]P49关于赋值的解释）。因此，在以后的操作中，可以利用这个拷贝构造函数来解决这一问题。</p>
+<p>接下来的构造函数</p>
+<pre><code><span class="keyword">public</span> Instances(<span class="comment">/* @non_null@ */</span>Instances dataset, <span class="keyword">int</span> capacity)
+</code></pre><p>主要功能是从原有的Instances构造一个新的Instances，区别在于新的数据表为空，只复制Attribute信息</p>
+<pre><code><span class="keyword">public</span> Instances(<span class="comment">/* @non_null@ */</span>Instances <span class="keyword">source</span>, <span class="keyword">int</span> first, <span class="keyword">int</span> toCopy)
+</code></pre><p>这个构造函数从原有的Instances中复制一部分数据</p>
+</li>
+<li><p>Attribute有关方法<br>在Instances中，每一个Feature用Attribute表示，用一个FastVector（和vector差不多，只不过是Weka自己设计的，博主也没再深入的看）来存储。而这个FastVector的属性是protected，因此要想在外部得到Attribute就必须调用其他public的方法。</p>
+<pre><code><span class="keyword">public</span><span class="comment">/* @pure@ */</span>Attribute attribute(<span class="keyword">int</span> <span class="keyword">index</span>)
+</code></pre><p>这个方法有够简洁明了。参数表示Attribute的位置（从0开始），返回一个Attribute类型。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">void</span> insertAttributeAt(<span class="comment">/* @non_null@ */</span>Attribute att, <span class="keyword">int</span> position)
+</code></pre><p>在指定位置添加一个Attribute，并且给里面所有值置空（null）。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">void</span> deleteAttributeAt(<span class="keyword">int</span> position)
+</code></pre><p>很重要的方法。删除指定位置的Attribute。这里要多说几句。当想要得到一个新的Instances的时候，我倾向通过删除Attribute来实现。而另一种方法，即新建一个空的Instances然后添加Attribute会比较麻烦，因为初始的Instances在指定容量（capacity）以后是完全空的，而刚才提到的insertAttribute方法是不能给数据赋值的，这样就需要遍历所有的数据来进行赋值操作。而使用删除操作是直接将一个Attribute的指针置空，从Java执行效率上来说是快一些的。当然，博主只是一个菜鸟，希望能有高手来指正。</p>
+<pre><code>public<span class="comment">/* @pure@ */</span>int <span class="function"><span class="title">numAttributes</span><span class="params">()</span></span>
+</code></pre><p>返回该Instances中Attribute的数量。</p>
+</li>
+<li><p>Instance有关方法<br>注意看仔细了！这个Instance没有s！这里的Instance是表示每一条数据。由于Attribute实际是不存储数据值的，数据值都存在Instance当中。</p>
+<pre><code><span class="keyword">public</span><span class="comment">/* @non_null pure@ */</span>Instance instance(<span class="keyword">int</span> <span class="keyword">index</span>)
+</code></pre><p>简介明了返回一个Instance。这里需要看一下Instance类中的一个方法</p>
+<pre><code><span class="keyword">public</span> /*@<span class="keyword">pure</span>@*/ <span class="type">double</span> <span class="keyword">value</span>(<span class="built_in">int</span> attIndex)
+</code></pre><p>这个方法返回了Instance里某个Attribute的值。在以后的操作中，凡是要取某个特定位置的值，都要使用这个方法。<br>另一个Instance的方法是</p>
+<pre><code><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span>(<span class="params"><span class="keyword">int</span> attIndex, <span class="keyword">double</span> <span class="keyword">value</span></span>)</span>
+</code></pre><p>这个方法的作用是设置（或更改）某个值。注意这里用的是double，这个方法的一个重载是用的string，这意味着数据值只有这两种：double与string。这一点同样也可以通过Instance中value与stringvalue两个方法的返回值看出。因此在调用这些方法的时候一定要注意数据类型。</p>
+<pre><code>public<span class="comment">/* @pure@ */</span>int <span class="function"><span class="title">numInstances</span><span class="params">()</span></span>
+</code></pre><p>回到Instances类，这个方法是返回Instance（没有s）的数量。</p>
+</li>
+</ul>
+<p>Instances类中重要的方法暂时就介绍到这里，以后需要用到的函数会到时候再补充。</p>
+<h2 id="参考文献">参考文献</h2><ol>
+<li>Jensen, R. and S. Qiang, Fuzzy-Rough Sets Assisted Attribute Selection. Fuzzy Systems, IEEE Transactions on, 2007. 15(1): p. 73-89.</li>
+<li>陈昊鹏. 饶若楠, Java编程思想（第3版）, 机械工业出版社</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/中文/">中文</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/中文/">中文</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://zhaozongyuan.com/2014/08/06/rough_set_model_weka_install_and_read_data/" data-title="Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据 | Z-Zone" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/08/05/changepacman/"  title="pacman 主题优化">
+ <strong>下一篇：</strong><br/> 
+ <span>pacman 主题优化
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2014/08/06/rough_set_model_weka_install_and_read_data/" data-title="Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据" data-url="http://zhaozongyuan.com/2014/08/06/rough_set_model_weka_install_and_read_data/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rough_Set_model简介"><span class="toc-number">2.</span> <span class="toc-text">Rough Set model简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#weka简介"><span class="toc-number">3.</span> <span class="toc-text">weka简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Eclipse中安装weka资源包"><span class="toc-number">4.</span> <span class="toc-text">在Eclipse中安装weka资源包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#读取arff数据"><span class="toc-number">5.</span> <span class="toc-text">读取arff数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instances类"><span class="toc-number">6.</span> <span class="toc-text">Instances类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">7.</span> <span class="toc-text">参考文献</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/中文/" title="中文">中文<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/github/" title="github">github<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/中文/" title="中文">中文<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/建立/" title="建立">建立<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/入门/" title="入门">入门<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zongyuan Zhao <br/>
+			You are welcome to contact me by sending email to zzy198700@hotmail.com</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/zzhao3" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zzy198700@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Zongyuan Zhao">Zongyuan Zhao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zhaozongyuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
