@@ -18,7 +18,7 @@
 在简单背景下识别手部轮廓
 识别中指指尖位置
 
-本文使用matlab版本为R2012b。摄像头采集到的图像为1280*720。本文只提供一种解决思路，实测效果受环境影响。
+本文使用matlab版本为R2012a。摄像头采集到的图像为1280*720。本文只提供一种解决思路，实测效果受环境影响。
 Matlab Guide建立打开matlab，输入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="matlab手轮廓识别与中指指尖检测">
@@ -31,9 +31,18 @@ Matlab Guide建立打开matlab，输入">
 在简单背景下识别手部轮廓
 识别中指指尖位置
 
-本文使用matlab版本为R2012b。摄像头采集到的图像为1280*720。本文只提供一种解决思路，实测效果受环境影响。
+本文使用matlab版本为R2012a。摄像头采集到的图像为1280*720。本文只提供一种解决思路，实测效果受环境影响。
 Matlab Guide建立打开matlab，输入">
-<meta property="og:updated_time" content="2015-07-06T17:17:34.000Z">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V11cuhPt3hqObJ/JnzmuCSxlFQgVW927oVjGMWRjggw0fIvtYfQEmgbeec!/b/dGABAAAAAAAA&bo=OAKXAQAAAAAFB4g!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V11cuhPt3hqObJ/JFiTB91ZxD8.gqqv*HrxwwFsXo0rIf5r3GWEnghcZKo!/b/dFgAAAAAAAAA&bo=IQKRAQAAAAAFB5c!&rf=viewer_4">
+<meta property="og:image" content="http://a3.qpic.cn/psb?/V11cuhPt3hqObJ/oiYYGYO8L4dls1RHxi3BmuPgKHvzBMsrnBWb82ApXXo!/b/dAIAAAAAAAAA&bo=twLPAQAAAAAFB18!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V11cuhPt3hqObJ/WTFGwAF1V*yy.mRU8j1iOIwkbOjUkbc*hOTiKg7w93s!/b/dAYAAAAAAAAA&bo=KgLBAQAAAAAFB8w!&rf=viewer_4">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/Ac8s9a4tNhu*U8augx*dXqAv2hBq9dJqJdZ6Qe5R3mk!/r/dCIAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/8fDmTEsHTirNLw.75Ul97SAAml1Blp6u6VU5jz4v*rA!/r/dE0AAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/cd.NRH4u*quP9CeShKHxl59DrjmC8DxhCshR44D21PQ!/r/dCwAAAAAAAAA">
+<meta property="og:image" content="http://rawtj.photo.store.qq.com/psb?/V11cuhPt3hqObJ/juwk0yebS3JU7ceHAzQh3iSYkry0fu7gBmnhzwhGN*0!/r/dFQAAAAAAAAA">
+<meta property="og:image" content="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/LM8yAOZb2pI2U*hftKfFKUr3*hpRG*05xpJfp9bVsNs!/r/dGkAAAAAAAAA">
+<meta property="og:updated_time" content="2015-07-07T08:44:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="matlab手轮廓识别与中指指尖检测">
 <meta name="twitter:description" content="概要本文将讲述如何利用matlab guide编写手部轮廓检测以及中指指尖识别程序。项目具体需求：
@@ -43,7 +52,7 @@ Matlab Guide建立打开matlab，输入">
 在简单背景下识别手部轮廓
 识别中指指尖位置
 
-本文使用matlab版本为R2012b。摄像头采集到的图像为1280*720。本文只提供一种解决思路，实测效果受环境影响。
+本文使用matlab版本为R2012a。摄像头采集到的图像为1280*720。本文只提供一种解决思路，实测效果受环境影响。
 Matlab Guide建立打开matlab，输入">
 
     
@@ -120,7 +129,7 @@ Matlab Guide建立打开matlab，输入">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matlab_Guide建立"><span class="toc-number">2.</span> <span class="toc-text">Matlab Guide建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按钮（Button）"><span class="toc-number">2.1.</span> <span class="toc-text">添加按钮（Button）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加图片显示（axes）"><span class="toc-number">2.2.</span> <span class="toc-text">添加图片显示（axes）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按键动作"><span class="toc-number">2.3.</span> <span class="toc-text">添加按键动作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行"><span class="toc-number">2.4.</span> <span class="toc-text">执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局变量与变量调用"><span class="toc-number">3.</span> <span class="toc-text">全局变量与变量调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量"><span class="toc-number">3.1.</span> <span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用UserData进行参数传递"><span class="toc-number">3.2.</span> <span class="toc-text">使用UserData进行参数传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#摄像头读取"><span class="toc-number">4.</span> <span class="toc-text">摄像头读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#视频流显示"><span class="toc-number">4.1.</span> <span class="toc-text">视频流显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截取一帧图像"><span class="toc-number">4.2.</span> <span class="toc-text">截取一帧图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像与矩阵"><span class="toc-number">4.3.</span> <span class="toc-text">图像与矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轮廓提取"><span class="toc-number">5.</span> <span class="toc-text">轮廓提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度计算"><span class="toc-number">5.1.</span> <span class="toc-text">梯度计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#膨胀与腐蚀"><span class="toc-number">5.2.</span> <span class="toc-text">膨胀与腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手部填充"><span class="toc-number">5.3.</span> <span class="toc-text">手部填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轮廓精提取"><span class="toc-number">5.4.</span> <span class="toc-text">轮廓精提取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中指指尖检测"><span class="toc-number">6.</span> <span class="toc-text">中指指尖检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重心定位"><span class="toc-number">6.1.</span> <span class="toc-text">重心定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#注1_ones矩阵"><span class="toc-number">6.1.1.</span> <span class="toc-text">注1 ones矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注2_矩阵运算"><span class="toc-number">6.1.2.</span> <span class="toc-text">注2 矩阵运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注3_sum函数"><span class="toc-number">6.1.3.</span> <span class="toc-text">注3 sum函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注4_“-*”运算"><span class="toc-number">6.1.4.</span> <span class="toc-text">注4 “.*”运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注5_类型转换"><span class="toc-number">6.1.5.</span> <span class="toc-text">注5 类型转换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻找最远点"><span class="toc-number">6.2.</span> <span class="toc-text">寻找最远点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指位置标示"><span class="toc-number">6.3.</span> <span class="toc-text">中指位置标示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指坐标显示"><span class="toc-number">6.4.</span> <span class="toc-text">中指坐标显示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matlab_Guide建立"><span class="toc-number">2.</span> <span class="toc-text">Matlab Guide建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按钮（Button）"><span class="toc-number">2.1.</span> <span class="toc-text">添加按钮（Button）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加图片显示（axes）"><span class="toc-number">2.2.</span> <span class="toc-text">添加图片显示（axes）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按键动作"><span class="toc-number">2.3.</span> <span class="toc-text">添加按键动作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行"><span class="toc-number">2.4.</span> <span class="toc-text">执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局变量与变量调用"><span class="toc-number">3.</span> <span class="toc-text">全局变量与变量调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量"><span class="toc-number">3.1.</span> <span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用UserData进行参数传递"><span class="toc-number">3.2.</span> <span class="toc-text">使用UserData进行参数传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#摄像头读取"><span class="toc-number">4.</span> <span class="toc-text">摄像头读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#视频流显示"><span class="toc-number">4.1.</span> <span class="toc-text">视频流显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截取一帧图像"><span class="toc-number">4.2.</span> <span class="toc-text">截取一帧图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像与矩阵"><span class="toc-number">4.3.</span> <span class="toc-text">图像与矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轮廓提取"><span class="toc-number">5.</span> <span class="toc-text">轮廓提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度计算"><span class="toc-number">5.1.</span> <span class="toc-text">梯度计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#膨胀与腐蚀"><span class="toc-number">5.2.</span> <span class="toc-text">膨胀与腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手部填充"><span class="toc-number">5.3.</span> <span class="toc-text">手部填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轮廓精提取"><span class="toc-number">5.4.</span> <span class="toc-text">轮廓精提取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中指指尖检测"><span class="toc-number">6.</span> <span class="toc-text">中指指尖检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重心定位"><span class="toc-number">6.1.</span> <span class="toc-text">重心定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻找最远点"><span class="toc-number">6.2.</span> <span class="toc-text">寻找最远点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指位置标示"><span class="toc-number">6.3.</span> <span class="toc-text">中指位置标示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指坐标显示"><span class="toc-number">6.4.</span> <span class="toc-text">中指坐标显示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点与限制"><span class="toc-number">7.1.</span> <span class="toc-text">缺点与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可能的改进"><span class="toc-number">7.2.</span> <span class="toc-text">可能的改进</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -131,15 +140,18 @@ Matlab Guide建立打开matlab，输入">
 <li>在简单背景下识别手部轮廓</li>
 <li>识别中指指尖位置</li>
 </ol>
-<p>本文使用matlab版本为R2012b。摄像头采集到的图像为1280*720。<br>本文只提供一种解决思路，实测效果受环境影响。</p>
+<p>本文使用matlab版本为R2012a。摄像头采集到的图像为1280*720。<br>本文只提供一种解决思路，实测效果受环境影响。</p>
 <h2 id="Matlab_Guide建立">Matlab Guide建立</h2><p>打开matlab，输入</p>
 <pre><code>guide
 </code></pre><p>之后会显示新建guide的界面，填写项目名称与存储位置即可。</p>
+<p><img src="http://a2.qpic.cn/psb?/V11cuhPt3hqObJ/JnzmuCSxlFQgVW927oVjGMWRjggw0fIvtYfQEmgbeec!/b/dGABAAAAAAAA&amp;bo=OAKXAQAAAAAFB4g!&amp;rf=viewer_4" alt="Create guide"></p>
 <p>这时会在该位置生成<code>.m</code>与<code>.fig</code>文件，该文件分别为matlab guide的命令代码文件与图形设计界面。</p>
 <h3 id="添加按钮（Button）">添加按钮（Button）</h3><p>在图形设计界面的左边栏找到Button控件，拖拽到相应位置。</p>
 <p>双击拖拽好的Button，就可以看到该按键的各种设置。找到String，修改其内容，即可改变Button中显示的内容。</p>
 <h3 id="添加图片显示（axes）">添加图片显示（axes）</h3><p>在图形设计界面的左边栏找到axes控件，拖拽到相应位置。</p>
+<p><img src="http://a2.qpic.cn/psb?/V11cuhPt3hqObJ/JFiTB91ZxD8.gqqv*HrxwwFsXo0rIf5r3GWEnghcZKo!/b/dFgAAAAAAAAA&amp;bo=IQKRAQAAAAAFB5c!&amp;rf=viewer_4" alt="Button and axes"></p>
 <h3 id="添加按键动作">添加按键动作</h3><p>对于button可以添加按键动作。选中一个button，右键-&gt;view callbacks-&gt;callback</p>
+<p><img src="http://a3.qpic.cn/psb?/V11cuhPt3hqObJ/oiYYGYO8L4dls1RHxi3BmuPgKHvzBMsrnBWb82ApXXo!/b/dAIAAAAAAAAA&amp;bo=twLPAQAAAAAFB18!&amp;rf=viewer_4" alt="Callback"></p>
 <p>这时会跳转到<code>.m</code>文件中相应的代码段。类似如下代码</p>
 <pre><code>% --- Executes <span class="keyword">on</span> button press <span class="keyword">in</span> pushbutton1.
 <span class="keyword">function</span> pushbutton1_Callback(hObject, eventdata, <span class="keyword">handles</span>)
@@ -217,6 +229,7 @@ axes(<span class="keyword">handles</span>.axes2);%在axes2中显示图片
 imshow(f);
 </code></pre><p>*本段参考了<a href="http://blog.csdn.net/hzhaly/article/details/18771099" target="_blank" rel="external">西西弗的石头的博客</a></p>
 <h3 id="图像与矩阵">图像与矩阵</h3><p>在matlab里，图像以像素矩阵的形式存储。在matlab界面中，可以通过点击右上角中图像的变量来查看矩阵。</p>
+<p><img src="http://a1.qpic.cn/psb?/V11cuhPt3hqObJ/WTFGwAF1V*yy.mRU8j1iOIwkbOjUkbc*hOTiKg7w93s!/b/dAYAAAAAAAAA&amp;bo=KgLBAQAAAAAFB8w!&amp;rf=viewer_4" alt="image matrix"></p>
 <p>有关的矩阵操作将在下面用到时详细说明。</p>
 <h2 id="轮廓提取">轮廓提取</h2><p>由于本文要求使用摄像头采集的图像进行手部轮廓提取，虽然背景简单，但是由于光线等影响，图片中不免产生噪声。直接对灰度图进行canny算子的边缘检测效果非常不理想。</p>
 <p>因此，本文采用了另一种思路。对图像首先计算其梯度。通过设定梯度的阈值来检测物体的边缘。其中用到了膨胀与腐蚀算子对图像进行处理。填充手部区域以排除手纹影响，最后用canny算子进行边缘检测得到手部轮廓。</p>
@@ -239,7 +252,7 @@ Fx =
 1.0000    1.0000    1.0000   -4.5000  -10.0000
 
 Fy =
-  -1.0000   -5.0000   -2.0000   -2.0000    5.0000
+-1.0000   -5.0000   -2.0000   -2.0000    5.0000
      0   -1.0000    2.0000    2.0000         0
 1.0000    2.0000    4.0000    4.0000   -2.5000
 1.0000    1.0000    2.0000    2.0000         0
@@ -261,7 +274,8 @@ I2=rgb2gray(G);<span class="comment">%将梯度图G转换为灰度图</span>
 I2(I2&lt;<span class="number">5</span>/<span class="number">255</span>)=<span class="number">0</span>;<span class="comment">%设定阈值为5/255，即当梯度小于5/255时视为非边缘，显示黑色</span>
 I2(I2&gt;=<span class="number">5</span>/<span class="number">255</span>)=<span class="number">1</span>;<span class="comment">%当梯度大于5/255视为边缘，显示白色；</span>
 imwrite(I2, <span class="string">'D:\im1.jpg'</span>);<span class="comment">%保存边缘图，为黑白两色二值图</span>
-</code></pre><p>有关梯度的知识参考了<a href="http://blog.sina.com.cn/s/blog_53be544e0101cd8a.html" target="_blank" rel="external">童心未泯的博客</a>以及<a href="http://www.ilovematlab.cn/thread-40710-1-1.html" target="_blank" rel="external">matlab中文论坛</a></p>
+</code></pre><p>得到的二值图如下：<br><img src="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/Ac8s9a4tNhu*U8augx*dXqAv2hBq9dJqJdZ6Qe5R3mk!/r/dCIAAAAAAAAA" alt="im1"></p>
+<p>有关梯度的知识参考了<a href="http://blog.sina.com.cn/s/blog_53be544e0101cd8a.html" target="_blank" rel="external">童心未泯的博客</a>以及<a href="http://www.ilovematlab.cn/thread-40710-1-1.html" target="_blank" rel="external">matlab中文论坛</a></p>
 <h3 id="膨胀与腐蚀">膨胀与腐蚀</h3><p>膨胀与腐蚀是图像处理中的两项基本操作，目的是消除图像中的噪声点。</p>
 <p><strong>腐蚀</strong>:用一个结构元素(一般是3×3的大小)扫描图像中的每一个像素，用结构元素中的每一个像素与其覆盖的像素做“与”操作，如果都为1，则该像素为1，否则为0。 </p>
 <p><strong>膨胀</strong>:用一个结构元素(一般是3×3的大小)扫描图像中的每一个像素，用结构元素中的每一个像素与其覆盖的像素做“与”操作，如果都为0，则该像素为0，否则为1。</p>
@@ -276,6 +290,8 @@ imwrite(I2, <span class="string">'D:\im1.jpg'</span>);<span class="comment">%保
 BW2=bwmorph<span class="list">(<span class="keyword">BW2</span>, <span class="quoted">'dilate</span>')</span><span class="comment">;%膨胀操作</span>
 BW2=bwmorph<span class="list">(<span class="keyword">BW2</span>, <span class="quoted">'erode</span>')</span><span class="comment">;%腐蚀操作</span>
 </code></pre><p>有关<code>bwmorph</code>方法的使用，参见<a href="http://blog.sina.com.cn/s/blog_6f2d29af0101060n.html" target="_blank" rel="external">阳光雨露的博客</a></p>
+<p>膨胀腐蚀后的手部轮廓图如下</p>
+<p><img src="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/8fDmTEsHTirNLw.75Ul97SAAml1Blp6u6VU5jz4v*rA!/r/dE0AAAAAAAAA" alt="im2"></p>
 <h3 id="手部填充">手部填充</h3><p>为了消除手纹的影响，采用填充手部区域的方法。由于该方法只填充手轮廓曲线，而不会填充手部之外的非封闭曲线，因此可以增加手部边界的准确度，部分去除阴影与背景噪声的影响。</p>
 <p>采用imfill函数。具体函数的使用方法参见了<a href="http://www.ilovematlab.cn/thread-74613-1-1.html" target="_blank" rel="external">matlab中文论坛</a></p>
 <p><code>imfill</code>会填充二值图中的封闭区域。但是这里有一个问题。如果区域连接了图片边缘，则被判定为开放区域。而在手部图像中，手腕是会被识别为手部的，因此刚得到的手部粗轮廓中，由于手腕处于图像边缘，手部轮廓是一个开放区域，不能被填充。</p>
@@ -304,6 +320,8 @@ imwrite<span class="list">(<span class="keyword">BW3</span>, <span class="variab
 </code></pre><p>将矩阵的第一列（最左列）全部赋值为0，可以表示为</p>
 <pre><code><span class="function">I</span>(<span class="value">:,<span class="number">1</span>)=<span class="number">0</span>;</span>
 </code></pre><p>这里的意思是，对于所有行的元素（用<code>:</code>表示），其第一列（逗号后面的1）赋值为0。</p>
+<p>手部填充后的手部图如下</p>
+<p><img src="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/cd.NRH4u*quP9CeShKHxl59DrjmC8DxhCshR44D21PQ!/r/dCwAAAAAAAAA" alt="im3"></p>
 <h3 id="轮廓精提取">轮廓精提取</h3><p>得到填充区域后，采用canny算子进行轮廓提取，得到手部精轮廓。</p>
 <p>canny算子边缘检测是一种目前比较常用与优秀的边缘检测方法。有关canny算子的详细介绍，请参见<a href="https://zh.wikipedia.org/wiki/Canny%E7%AE%97%E5%AD%90" target="_blank" rel="external">维基百科</a>或自行百度<code>canny 边缘检测</code></p>
 <p>这里由于只是进行简单图形的边缘检测，因此直接调用matlab所提供的方法<code>edge</code>。有关<code>edge</code>方法的粗略介绍可以参考<a href="http://blog.sina.com.cn/s/blog_6c8f4cc801014at3.html" target="_blank" rel="external">落寞的博客</a>。详细介绍还是要看<a href="http://au.mathworks.com/help/images/ref/edge.html" target="_blank" rel="external">matlab官方文档</a></p>
@@ -313,7 +331,8 @@ BW3=edge<span class="list">(<span class="keyword">BW3</span>,<span class="quoted
 imwrite<span class="list">(<span class="keyword">BW3</span>, <span class="quoted">'D</span>:\im4.jpg')</span><span class="comment">;</span>
 axes<span class="list">(<span class="keyword">handles</span>.axes3)</span><span class="comment">;%显示到axes3中</span>
 imshow<span class="list">(<span class="keyword">BW3</span>)</span><span class="comment">;</span>
-</code></pre><p>至此，手部轮廓提取完毕。</p>
+</code></pre><p>至此，手部轮廓提取完毕。得到的手部轮廓图如下</p>
+<p><img src="http://rawtj.photo.store.qq.com/psb?/V11cuhPt3hqObJ/juwk0yebS3JU7ceHAzQh3iSYkry0fu7gBmnhzwhGN*0!/r/dFQAAAAAAAAA" alt="im4"></p>
 <h2 id="中指指尖检测">中指指尖检测</h2><p>这里的中指指尖检测采用了相对简单的方法，即重心距离法。首先找到手部的重心，然后找到距离重心最远的边缘点，即判定为中指指尖位置。该方法受到了<a href="http://blog.csdn.net/zouxy09/article/details/8711461" target="_blank" rel="external">zouxy09的专栏</a>以及<a href="http://blog.csdn.net/onezeros/article/details/6196095" target="_blank" rel="external">onezeros的专栏</a>的启发。</p>
 <h3 id="重心定位">重心定位</h3><p>由于手部区域被保存在二值图中，因此手部重心即为二值图中白色区域的重心。</p>
 <p>在二值图中，1表示像素点为白色，0表示黑色，而矩阵中x y的值即为其图像中位置。因此，<strong>手部重心坐标即为二值图中所有值为1的点的坐标值之和，除以值为1的点的个数</strong>。</p>
@@ -333,21 +352,25 @@ meanx=sum(sum(BW3.*x))/area;<span class="comment">%注4 ".*"运算</span>
 meany=sum(sum(BW3.*y))/area;
 mx=int32(meanx);<span class="comment">%注5 类型转换</span>
 my=int32(meany);
-</code></pre><h4 id="注1_ones矩阵">注1 ones矩阵</h4><p>ones用来产生全1矩阵。<code>ones(m,n)</code>即产生一个m*n的矩阵，其中所有的值均为1。这里我们产生了两个全1矩阵，分别是单行全1（<code>ones(1,cols)</code>）与单列全1（<code>ones(rows,1)</code>）。用这两个矩阵分别与列坐标矩阵<code>[1:rows]</code>和行坐标矩阵<code>[1:cols]</code>相乘，得到了整幅图像的坐标矩阵x与y。</p>
-<h4 id="注2_矩阵运算">注2 矩阵运算</h4><p>matlab提供了丰富而强大的矩阵运算功能。本文参考了<a href="http://blog.csdn.net/dengjianqiang2011/article/details/8753807" target="_blank" rel="external">dengjianqiang2011的专栏</a>。</p>
+</code></pre><p><strong>注1 ones矩阵</strong><br>ones用来产生全1矩阵。<code>ones(m,n)</code>即产生一个m*n的矩阵，其中所有的值均为1。这里我们产生了两个全1矩阵，分别是单行全1（<code>ones(1,cols)</code>）与单列全1（<code>ones(rows,1)</code>）。用这两个矩阵分别与列坐标矩阵<code>[1:rows]</code>和行坐标矩阵<code>[1:cols]</code>相乘，得到了整幅图像的坐标矩阵x与y。</p>
+<p><strong>注2 矩阵运算</strong><br>matlab提供了丰富而强大的矩阵运算功能。本文参考了<a href="http://blog.csdn.net/dengjianqiang2011/article/details/8753807" target="_blank" rel="external">dengjianqiang2011的专栏</a>。</p>
 <p>这里用到两种矩阵运算</p>
-<p><strong>转置矩阵</strong></p>
+<ol>
+<li>转置矩阵</li>
+</ol>
 <p>使用符号<code>` </code>来表示矩阵的转置。有关转置矩阵的定义参见<a href="http://baike.baidu.com/view/1659988.htm" target="_blank" rel="external">百度百科</a></p>
-<p><strong>矩阵乘法</strong></p>
+<ol>
+<li>矩阵乘法</li>
+</ol>
 <p>即矩阵相乘，用<code>*</code>来表示矩阵相乘。</p>
-<h4 id="注3_sum函数">注3 sum函数</h4><p>sum函数可求得矩阵某一行或某一列元素之和。具体用法请参考<a href="http://blog.sina.com.cn/s/blog_4af3f0d20100c90f.html" target="_blank" rel="external">菜鸟的博客</a>。<br>这里，<code>sum(BW3)</code>是对矩阵BW3按行求和，求和的结果仍然为一个矩阵。这时再对这个矩阵进行求和，即<code>sum(sum(BW3))</code>，得到的结果为整个BW3矩阵所有元素之和。</p>
+<p><strong>注3 sum函数</strong><br>sum函数可求得矩阵某一行或某一列元素之和。具体用法请参考<a href="http://blog.sina.com.cn/s/blog_4af3f0d20100c90f.html" target="_blank" rel="external">菜鸟的博客</a>。<br>这里，<code>sum(BW3)</code>是对矩阵BW3按行求和，求和的结果仍然为一个矩阵。这时再对这个矩阵进行求和，即<code>sum(sum(BW3))</code>，得到的结果为整个BW3矩阵所有元素之和。</p>
 <p>由于BW3为手部区域二值化图像，白点的值为1，黑点为0，因此其总的元素之和，即为其中白点数量。</p>
-<h4 id="注4_“-*”运算">注4 “.*”运算</h4><p><code>.*</code>运算为一种特殊的矩阵运算，其意义为两个矩阵中对应元素相乘，得到新的矩阵。具体解释请参见<a href="http://blog.csdn.net/dengjianqiang2011/article/details/8753807" target="_blank" rel="external">dengjianqiang2011的专栏</a>。</p>
+<p><strong>注4 “.*”运算</strong><br><code>.*</code>运算为一种特殊的矩阵运算，其意义为两个矩阵中对应元素相乘，得到新的矩阵。具体解释请参见<a href="http://blog.csdn.net/dengjianqiang2011/article/details/8753807" target="_blank" rel="external">dengjianqiang2011的专栏</a>。</p>
 <blockquote>
 <p>“点运算在MATLAB中，有一种特殊的运算，因为其运算符是在有关算术运算符前面加点，所以叫点运算。点运算符有.*、./、.\和.^。两矩阵进行点运算是指它们的对应元素进行相关运算，要求两矩阵的维参数相同。”</p>
 </blockquote>
 <p>这里，<code>BW3.*x</code>表示用BW3中每一个元素，与全坐标矩阵x相乘。所得结果即为BW3中每一个值为1的点（白点，即手部区域）的坐标矩阵（其余点的值为0）。将该矩阵求和（sum运算），即为所有手部点的坐标和。用该坐标和除以手部点的个数（area），所得结果即重心的x坐标。</p>
-<h4 id="注5_类型转换">注5 类型转换</h4><p>刚才得到的重心坐标为float类型（小数类型），而图像中的坐标都是int类型（整数型）。因此需要类型转换。</p>
+<p><strong>注5 类型转换</strong><br>刚才得到的重心坐标为float类型（小数类型），而图像中的坐标都是int类型（整数型）。因此需要类型转换。</p>
 <h3 id="寻找最远点">寻找最远点</h3><p>基本思路是通过遍历整个图像，找到距离重心最远的白点（值为1的点）。因此需要用到一个二重循环。</p>
 <p>两点间距离采用欧氏距离。因为开平方运算比较耗时，并且这里只需要比较大小而不需要知道距离的精确值，因此只计算欧氏距离的平方。</p>
 <pre><code>dist=<span class="comment">(i-my)</span>^<span class="number">2</span>+<span class="comment">(j-mx)</span>^<span class="number">2</span>;
@@ -392,7 +415,25 @@ imshow<span class="list">(<span class="keyword">BW3</span>)</span><span class="c
 <pre><code>set<span class="list">(<span class="keyword">handles</span>.text1, <span class="quoted">'String</span>',maxy)</span><span class="comment">;</span>
 set<span class="list">(<span class="keyword">handles</span>.text3, <span class="quoted">'String</span>',maxx)</span><span class="comment">;</span>
 </code></pre><p>静态文本框的显示参考了<a href="http://www.matlabsky.com/thread-24884-1-1.html" target="_blank" rel="external">matlab技术论坛</a></p>
-<h2 id="总结">总结</h2><p>至此，整个程序完成。稍后补充注意事项与待研究问题。</p>
+<p>最终界面如下</p>
+<p><img src="http://r.photo.store.qq.com/psb?/V11cuhPt3hqObJ/LM8yAOZb2pI2U*hftKfFKUr3*hpRG*05xpJfp9bVsNs!/r/dGkAAAAAAAAA" alt="final"></p>
+<h2 id="总结">总结</h2><p>至此，整个程序完成。</p>
+<h3 id="缺点与限制">缺点与限制</h3><ol>
+<li>本文用白纸作为背景进行测试，其他未测试。理论上要求背景简单，即无其他物体干扰。背景颜色尽量区别于肤色。</li>
+<li>手腕在左侧通过了测试，但右侧没有测试，理论上应该可以正常使用</li>
+<li>除了手腕，其他手部尽量不要触碰边框，会造成部分区域在填充时出现错误。</li>
+<li>因为有光照阴影影响，实际测试的时候可能手部面积会变大（阴影部分可能识别为手部）</li>
+<li>由于摄像头分辨率高，而屏幕较小，图片在显示时会被缩小，因此部分区域无法正常显示，尤其是手部轮廓只有一个像素点，会显示为虚线。因此实验结果以保存的原图为准。</li>
+</ol>
+<h3 id="可能的改进">可能的改进</h3><ol>
+<li>背景噪声控制。本方法对背景噪音非常敏感，可以考虑通过使用滤波消除背景噪音。</li>
+<li>手部区域的检测可以通过肤色识别来更精确的实现。将图片映射到HSV颜色空间中，消除光照影响，然后转为灰度图，设定肤色范围，从而达到识别手部轮廓的目的。该方法的缺点是手部轮廓不够精确，因而影响后面的指尖定位。</li>
+<li>指尖定位方法较为简单，但是考虑到要求只定位中指，重点问题在于如何与其他指尖相互区别。可以考虑采用直线拟合，定位出手指边缘直线位置，从而找到中指所在边缘。但该方法仅适用于五指张开手势，对于其他手势效果会有影响。而中指定位通常需要借助数据手套或者标记点来实现。</li>
+<li>作者曾试图在图片中用红圈标记出指尖位置，未能成功。该功能有待于进一步研究。</li>
+<li>在前文提到，在给图片加白色边界后，出现底部边界宽度为2的情况。为何有此现象有待于进一步研究。</li>
+<li>在前文提到，matlab中变量的作用域与java等其他语言不同。这个问题有待于进一步研究。</li>
+<li>摄像头视频流的读入功能尚不清楚，仅仅是复制网上例子。代码具体功能与用法有待于进一步研究。</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -441,7 +482,7 @@ set<span class="list">(<span class="keyword">handles</span>.text3, <span class="
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matlab_Guide建立"><span class="toc-number">2.</span> <span class="toc-text">Matlab Guide建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按钮（Button）"><span class="toc-number">2.1.</span> <span class="toc-text">添加按钮（Button）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加图片显示（axes）"><span class="toc-number">2.2.</span> <span class="toc-text">添加图片显示（axes）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按键动作"><span class="toc-number">2.3.</span> <span class="toc-text">添加按键动作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行"><span class="toc-number">2.4.</span> <span class="toc-text">执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局变量与变量调用"><span class="toc-number">3.</span> <span class="toc-text">全局变量与变量调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量"><span class="toc-number">3.1.</span> <span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用UserData进行参数传递"><span class="toc-number">3.2.</span> <span class="toc-text">使用UserData进行参数传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#摄像头读取"><span class="toc-number">4.</span> <span class="toc-text">摄像头读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#视频流显示"><span class="toc-number">4.1.</span> <span class="toc-text">视频流显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截取一帧图像"><span class="toc-number">4.2.</span> <span class="toc-text">截取一帧图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像与矩阵"><span class="toc-number">4.3.</span> <span class="toc-text">图像与矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轮廓提取"><span class="toc-number">5.</span> <span class="toc-text">轮廓提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度计算"><span class="toc-number">5.1.</span> <span class="toc-text">梯度计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#膨胀与腐蚀"><span class="toc-number">5.2.</span> <span class="toc-text">膨胀与腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手部填充"><span class="toc-number">5.3.</span> <span class="toc-text">手部填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轮廓精提取"><span class="toc-number">5.4.</span> <span class="toc-text">轮廓精提取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中指指尖检测"><span class="toc-number">6.</span> <span class="toc-text">中指指尖检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重心定位"><span class="toc-number">6.1.</span> <span class="toc-text">重心定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#注1_ones矩阵"><span class="toc-number">6.1.1.</span> <span class="toc-text">注1 ones矩阵</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注2_矩阵运算"><span class="toc-number">6.1.2.</span> <span class="toc-text">注2 矩阵运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注3_sum函数"><span class="toc-number">6.1.3.</span> <span class="toc-text">注3 sum函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注4_“-*”运算"><span class="toc-number">6.1.4.</span> <span class="toc-text">注4 “.*”运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注5_类型转换"><span class="toc-number">6.1.5.</span> <span class="toc-text">注5 类型转换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻找最远点"><span class="toc-number">6.2.</span> <span class="toc-text">寻找最远点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指位置标示"><span class="toc-number">6.3.</span> <span class="toc-text">中指位置标示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指坐标显示"><span class="toc-number">6.4.</span> <span class="toc-text">中指坐标显示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Matlab_Guide建立"><span class="toc-number">2.</span> <span class="toc-text">Matlab Guide建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按钮（Button）"><span class="toc-number">2.1.</span> <span class="toc-text">添加按钮（Button）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加图片显示（axes）"><span class="toc-number">2.2.</span> <span class="toc-text">添加图片显示（axes）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加按键动作"><span class="toc-number">2.3.</span> <span class="toc-text">添加按键动作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行"><span class="toc-number">2.4.</span> <span class="toc-text">执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局变量与变量调用"><span class="toc-number">3.</span> <span class="toc-text">全局变量与变量调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量"><span class="toc-number">3.1.</span> <span class="toc-text">全局变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用UserData进行参数传递"><span class="toc-number">3.2.</span> <span class="toc-text">使用UserData进行参数传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#摄像头读取"><span class="toc-number">4.</span> <span class="toc-text">摄像头读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#视频流显示"><span class="toc-number">4.1.</span> <span class="toc-text">视频流显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#截取一帧图像"><span class="toc-number">4.2.</span> <span class="toc-text">截取一帧图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像与矩阵"><span class="toc-number">4.3.</span> <span class="toc-text">图像与矩阵</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轮廓提取"><span class="toc-number">5.</span> <span class="toc-text">轮廓提取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度计算"><span class="toc-number">5.1.</span> <span class="toc-text">梯度计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#膨胀与腐蚀"><span class="toc-number">5.2.</span> <span class="toc-text">膨胀与腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手部填充"><span class="toc-number">5.3.</span> <span class="toc-text">手部填充</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#轮廓精提取"><span class="toc-number">5.4.</span> <span class="toc-text">轮廓精提取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中指指尖检测"><span class="toc-number">6.</span> <span class="toc-text">中指指尖检测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重心定位"><span class="toc-number">6.1.</span> <span class="toc-text">重心定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻找最远点"><span class="toc-number">6.2.</span> <span class="toc-text">寻找最远点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指位置标示"><span class="toc-number">6.3.</span> <span class="toc-text">中指位置标示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中指坐标显示"><span class="toc-number">6.4.</span> <span class="toc-text">中指坐标显示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#缺点与限制"><span class="toc-number">7.1.</span> <span class="toc-text">缺点与限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可能的改进"><span class="toc-number">7.2.</span> <span class="toc-text">可能的改进</span></a></li></ol></li></ol>
  
   </div>
 
