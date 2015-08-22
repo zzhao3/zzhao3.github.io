@@ -4,26 +4,31 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>用Mathjax在Hexo中插入数学公式 | Z-Zone</title>
+    <title>利用Weka实现遗传算法（Genetic Algorithm） | Z-Zone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Zongyuan Zhao">
     
 
     
-    <meta name="description" content="摘要本文介绍如何在博客中，利用Mathjax工具插入数学公式。包括安装步骤，以及一部分本人用到的公式符号。详细说明请参看Mathjax官网
-MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览器上显示数学符号与公式[1]。在Hexo中的安装参照了Jo Jiang的博客Hexo上使用MathJax来实现数学公式的表达。这里我整理了一下在Hexo中的安装，方便小白查看。">
+    <meta name="description" content="概要本文将从遗传算法原理入手，根据weka中一段关于GA Search的代码，实现基础的GA，并应用在特征选择（Feature Selection）中。
+关于weka以及其在eclipse中的安装，请参照我的另一篇博客Weka在elipse中的安装以及从arff中读取数据
+GA简介遗传算法（Genetic Algorithm），有时又称为进化算法（Evolution Algorithm），是根据达">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用Mathjax在Hexo中插入数学公式">
-<meta property="og:url" content="http://zhaozongyuan.com/2014/08/05/mathjax/index.html">
+<meta property="og:title" content="利用Weka实现遗传算法（Genetic Algorithm）">
+<meta property="og:url" content="http://zhaozongyuan.com/2015/08/22/wekajava1/index.html">
 <meta property="og:site_name" content="Z-Zone">
-<meta property="og:description" content="摘要本文介绍如何在博客中，利用Mathjax工具插入数学公式。包括安装步骤，以及一部分本人用到的公式符号。详细说明请参看Mathjax官网
-MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览器上显示数学符号与公式[1]。在Hexo中的安装参照了Jo Jiang的博客Hexo上使用MathJax来实现数学公式的表达。这里我整理了一下在Hexo中的安装，方便小白查看。">
-<meta property="og:updated_time" content="2015-06-07T04:30:56.000Z">
+<meta property="og:description" content="概要本文将从遗传算法原理入手，根据weka中一段关于GA Search的代码，实现基础的GA，并应用在特征选择（Feature Selection）中。
+关于weka以及其在eclipse中的安装，请参照我的另一篇博客Weka在elipse中的安装以及从arff中读取数据
+GA简介遗传算法（Genetic Algorithm），有时又称为进化算法（Evolution Algorithm），是根据达">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/4aa86401gw1evbr2qf5tjj20ba0cugm3.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/4aa86401gw1evbs5gfcu1j20aa042dg6.jpg">
+<meta property="og:updated_time" content="2015-08-22T14:58:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用Mathjax在Hexo中插入数学公式">
-<meta name="twitter:description" content="摘要本文介绍如何在博客中，利用Mathjax工具插入数学公式。包括安装步骤，以及一部分本人用到的公式符号。详细说明请参看Mathjax官网
-MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览器上显示数学符号与公式[1]。在Hexo中的安装参照了Jo Jiang的博客Hexo上使用MathJax来实现数学公式的表达。这里我整理了一下在Hexo中的安装，方便小白查看。">
+<meta name="twitter:title" content="利用Weka实现遗传算法（Genetic Algorithm）">
+<meta name="twitter:description" content="概要本文将从遗传算法原理入手，根据weka中一段关于GA Search的代码，实现基础的GA，并应用在特征选择（Feature Selection）中。
+关于weka以及其在eclipse中的安装，请参照我的另一篇博客Weka在elipse中的安装以及从arff中读取数据
+GA简介遗传算法（Genetic Algorithm），有时又称为进化算法（Evolution Algorithm），是根据达">
 
     
     <link rel="alternative" href="/atom.xml" title="Z-Zone" type="application/atom+xml">
@@ -83,14 +88,14 @@ MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/08/05/mathjax/" title="用Mathjax在Hexo中插入数学公式" itemprop="url">用Mathjax在Hexo中插入数学公式</a>
+      <a href="/2015/08/22/wekajava1/" title="利用Weka实现遗传算法（Genetic Algorithm）" itemprop="url">利用Weka实现遗传算法（Genetic Algorithm）</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Zongyuan Zhao" target="_blank" itemprop="author">Zongyuan Zhao</a>
 		
   <p class="article-time">
-    <time datetime="2014-08-05T12:02:15.000Z" itemprop="datePublished"> Published 2014-08-05</time>
+    <time datetime="2015-08-22T13:38:37.000Z" itemprop="datePublished"> Published 2015-08-22</time>
     
   </p>
 </header>
@@ -99,23 +104,37 @@ MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MathJax安装"><span class="toc-number">2.</span> <span class="toc-text">MathJax安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MathJax符号集"><span class="toc-number">3.</span> <span class="toc-text">MathJax符号集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GA简介"><span class="toc-number">2.</span> <span class="toc-text">GA简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#维基百科中关于遗传算法的定义"><span class="toc-number">2.1.</span> <span class="toc-text">维基百科中关于遗传算法的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遗传算法流程"><span class="toc-number">2.2.</span> <span class="toc-text">遗传算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码"><span class="toc-number">2.3.</span> <span class="toc-text">编码</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="摘要">摘要</h2><p>本文介绍如何在博客中，利用Mathjax工具插入数学公式。包括安装步骤，以及一部分本人用到的公式符号。详细说明请参看<a href="http://www.mathjax.org/" target="_blank" rel="external">Mathjax官网</a></p>
-<h2 id="MathJax安装">MathJax安装</h2><p>MathJax是一个开源的Javascript引擎，能够在所有浏览器上显示数学符号与公式[1]。在Hexo中的安装参照了Jo Jiang的博客<a href="http://hijiangtao.github.io/2014/09/08/MathJaxinHexo/" target="_blank" rel="external">Hexo上使用MathJax来实现数学公式的表达</a>。这里我整理了一下在Hexo中的安装，方便小白查看。</p>
-<p>在Hexo目录的Bash中，输入</p><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">—save</span></div></pre></td></tr></table></figure><br><br><p>安装好之后，执行</p><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo <span class="built_in">math</span> install</div></pre></td></tr></table></figure><br><br><p>OK之后，在Hexo根目录下的<code>_config.yml</code>中，添加</p><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">plugin<span class="variable">s:</span> </div><div class="line">- hexo-math</div></pre></td></tr></table></figure><br><br><p>测试：随便找一篇你的博客，加入下面代码</p><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="formula">$$<span class="command">\subset</span><span class="command">\frac</span><span class="special">{</span><span class="command">\partial</span> u<span class="special">}</span><span class="special">{</span><span class="command">\partial</span> t<span class="special">}</span></span></div><div class="line">= h^2 <span class="command">\left</span>( <span class="command">\frac</span><span class="special">{</span><span class="command">\partial</span>^2 u<span class="special">}</span><span class="special">{</span><span class="command">\partial</span> x^2<span class="special">}</span> +</div><div class="line"><span class="command">\frac</span><span class="special">{</span><span class="command">\partial</span>^2 u<span class="special">}</span><span class="special">{</span><span class="command">\partial</span> y^2<span class="special">}</span> +</div><div class="line"><span class="command">\frac</span><span class="special">{</span><span class="command">\partial</span>^2 u<span class="special">}</span><span class="special">{</span><span class="command">\partial</span> z^2<span class="special">}</span><span class="command">\right</span>)$$</div></pre></td></tr></table></figure><br><br>如果能正确显示公式<br><br>$$\subset\frac{\partial u}{\partial t}<br>= h^2 \left( \frac{\partial^2 u}{\partial x^2} +<br>\frac{\partial^2 u}{\partial y^2} +<br>\frac{\partial^2 u}{\partial z^2}\right)$$<br><br>则表明成功安装了MathJax。<br><h2 id="MathJax符号集">MathJax符号集</h2><br><p>完整的，原始的符号集请参照<a href="http://www.lsv.ens-cachan.fr/~markey/LaTeX/doc/Companion-chapter8.pdf" target="_blank" rel="external">http://www.lsv.ens-cachan.fr/~markey/LaTeX/doc/Companion-chapter8.pdf</a><br>中文版部分符号请参照<a href="http://www.360doc.com/content/14/0930/23/9482_413578190.shtml" target="_blank" rel="external">http://www.360doc.com/content/14/0930/23/9482_413578190.shtml</a><br>自己查找的时候，请使用“Latex 数学符号”等类似关键字。</p><br><h2 id="参考文献">参考文献</h2><br><p>[1] MathJax官方主页 <a href="http://www.mathjax.org/" target="_blank" rel="external">http://www.mathjax.org/</a><br>[2] Hexo上使用MathJax来实现数学公式的表达 <a href="http://hijiangtao.github.io/2014/09/08/MathJaxinHexo/" target="_blank" rel="external">http://hijiangtao.github.io/2014/09/08/MathJaxinHexo/</a></p>
+		<h2 id="概要">概要</h2><p>本文将从遗传算法原理入手，根据weka中一段关于GA Search的代码，实现基础的GA，并应用在特征选择（Feature Selection）中。</p>
+<p>关于weka以及其在eclipse中的安装，请参照我的另一篇博客<a href="http://zhaozongyuan.com/2014/08/06/rough_set_model_weka_install_and_read_data/">Weka在elipse中的安装以及从arff中读取数据</a></p>
+<h2 id="GA简介">GA简介</h2><p>遗传算法（Genetic Algorithm），有时又称为进化算法（Evolution Algorithm），是根据达尔文进化论与现代基因学结合提出的一种高效<strong>搜索</strong>算法。</p>
+<h3 id="维基百科中关于遗传算法的定义">维基百科中关于遗传算法的定义</h3><p>遗传算法是模仿自然界生物进化机制发展起来的随机全局搜索和优化方法，它借鉴了达尔文的进化论和孟德尔的遗传学说。其本质是一种高效、并行、全局搜索的方法，它能在搜索过程中自动获取和积累有关搜索空间的知识，并自适应的控制搜索过程以求得最优解。</p>
+<h3 id="遗传算法流程">遗传算法流程</h3><p>遗传算法的流程图<br><img src="http://ww2.sinaimg.cn/mw690/4aa86401gw1evbr2qf5tjj20ba0cugm3.jpg" alt="WekaGA1"></p>
+<blockquote>
+<p>名词解释</p>
+</blockquote>
+<p><strong>个体：</strong>又称为染色体（Chromosome），模拟遗传学中的染色体，是一串代表搜索区域中某个对象的数字串</p>
+<p><strong>种群：</strong>由一定数量的个体组成的集合，称为种群（Population）。通常在一次GA搜索中只有一个种群。</p>
+<p><strong>Fitness：</strong>通常翻译成适应度，每一个个体都具有一个Fitness，其值通过人工定义的fitness function来计算，代表着每个个体的能力值，也可理解为每个个体对整个环境的适应程度。更适应的个体更容易生存下来。</p>
+<p><strong>父辈个体：</strong>被选中来产生后代的个体。通常情况下，由两个父辈个体来产生（Generation）两个新个体。</p>
+<p><strong>交叉（Crossover）：</strong>模拟遗传学中染色体的交叉。通常使用的单点交叉为，在两个父辈个体（数字串）中，随机选择某一位，在这一位之后的数字进行交换。如图：</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/4aa86401gw1evbs5gfcu1j20aa042dg6.jpg" alt="Crossover"></p>
+<p><strong>变异（Mutate）：</strong>在新产生的个体中，根据变异率，某一位数字将被改变的操作，成为变异，与遗传学中的基因突变概念类似。</p>
+<p><strong>输出结果：</strong>根据设定的条件，最终得到的一个个体。</p>
+<h3 id="编码">编码</h3><p>通俗的说，编码就是如何用数字来表示种群。在一般搜索中，通常</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/中文/">中文</a>
-</div>
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Genetic-Algorithm/">Genetic Algorithm</a><a href="/tags/Java/">Java</a><a href="/tags/Weka/">Weka</a><a href="/tags/遗传算法/">遗传算法</a>
+  </div>
 
 </div>
 
@@ -123,7 +142,7 @@ MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zhaozongyuan.com/2014/08/05/mathjax/" data-title="用Mathjax在Hexo中插入数学公式 | Z-Zone" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zhaozongyuan.com/2015/08/22/wekajava1/" data-title="利用Weka实现遗传算法（Genetic Algorithm） | Z-Zone" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,19 +155,11 @@ MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/08/06/rough_set_model_weka_install_and_read_data/" title="Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/08/05/fuzzyrough1/"  title="fuzzy rough set 理论 （1）">
+<a href="/2015/07/06/matlabhandfigure/"  title="matlab手轮廓识别与中指指尖检测">
  <strong>下一篇：</strong><br/> 
- <span>fuzzy rough set 理论 （1）
+ <span>matlab手轮廓识别与中指指尖检测
 </span>
 </a>
 </div>
@@ -157,7 +168,7 @@ MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2014/08/05/mathjax/" data-title="用Mathjax在Hexo中插入数学公式" data-url="http://zhaozongyuan.com/2014/08/05/mathjax/"></div>
+	<div class="ds-thread" data-thread-key="2015/08/22/wekajava1/" data-title="利用Weka实现遗传算法（Genetic Algorithm）" data-url="http://zhaozongyuan.com/2015/08/22/wekajava1/"></div>
 </section>
 
 
@@ -167,7 +178,7 @@ MathJax安装MathJax是一个开源的Javascript引擎，能够在所有浏览�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MathJax安装"><span class="toc-number">2.</span> <span class="toc-text">MathJax安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MathJax符号集"><span class="toc-number">3.</span> <span class="toc-text">MathJax符号集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GA简介"><span class="toc-number">2.</span> <span class="toc-text">GA简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#维基百科中关于遗传算法的定义"><span class="toc-number">2.1.</span> <span class="toc-text">维基百科中关于遗传算法的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遗传算法流程"><span class="toc-number">2.2.</span> <span class="toc-text">遗传算法流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码"><span class="toc-number">2.3.</span> <span class="toc-text">编码</span></a></li></ol></li></ol>
  
   </div>
 
