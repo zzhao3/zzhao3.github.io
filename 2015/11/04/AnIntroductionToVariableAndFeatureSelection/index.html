@@ -1,0 +1,505 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>【文献翻译】An Introduction To Variable And Feature Selection | Z-Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Zongyuan Zhao">
+    
+
+    
+    <meta name="description" content="标题：变量与特征选择的介绍作者：Isabelle Guyon, Andre Elisseeff
+期刊：Journal of machine Learning Research 3 (2003) 1157-1182
+摘要变量与特征选择已经成为研究领域的热点，尤其当数据库中包含有几万到几十万个变量的时候。这些应用领域包括文字处理，基因组分析，以及组合化学。变量选择的目的有三个：提高预测机的预测表现，提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【文献翻译】An Introduction To Variable And Feature Selection">
+<meta property="og:url" content="http://zhaozongyuan.com/2015/11/04/AnIntroductionToVariableAndFeatureSelection/index.html">
+<meta property="og:site_name" content="Z-Zone">
+<meta property="og:description" content="标题：变量与特征选择的介绍作者：Isabelle Guyon, Andre Elisseeff
+期刊：Journal of machine Learning Research 3 (2003) 1157-1182
+摘要变量与特征选择已经成为研究领域的热点，尤其当数据库中包含有几万到几十万个变量的时候。这些应用领域包括文字处理，基因组分析，以及组合化学。变量选择的目的有三个：提高预测机的预测表现，提">
+<meta property="og:updated_time" content="2015-11-06T01:42:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【文献翻译】An Introduction To Variable And Feature Selection">
+<meta name="twitter:description" content="标题：变量与特征选择的介绍作者：Isabelle Guyon, Andre Elisseeff
+期刊：Journal of machine Learning Research 3 (2003) 1157-1182
+摘要变量与特征选择已经成为研究领域的热点，尤其当数据库中包含有几万到几十万个变量的时候。这些应用领域包括文字处理，基因组分析，以及组合化学。变量选择的目的有三个：提高预测机的预测表现，提">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Z-Zone" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/cool.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Z-Zone" title="Z-Zone"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Z-Zone">Z-Zone</a></h1>
+				<h2 class="blog-motto">Zongyuan’s Space</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About &amp; Contact</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zhaozongyuan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/11/04/AnIntroductionToVariableAndFeatureSelection/" title="【文献翻译】An Introduction To Variable And Feature Selection" itemprop="url">【文献翻译】An Introduction To Variable And Feature Selection</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Zongyuan Zhao" target="_blank" itemprop="author">Zongyuan Zhao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-04T06:00:57.000Z" itemprop="datePublished"> Published 2015-11-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#标题：变量与特征选择的介绍"><span class="toc-number">1.</span> <span class="toc-text">标题：变量与特征选择的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#摘要"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键词"><span class="toc-number">1.2.</span> <span class="toc-text">关键词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1_简介"><span class="toc-number">2.</span> <span class="toc-text">1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2_特征排序"><span class="toc-number">3.</span> <span class="toc-text">2 特征排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1_方法与记法"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 方法与记法</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="标题：变量与特征选择的介绍">标题：变量与特征选择的介绍</h2><p>作者：Isabelle Guyon, Andre Elisseeff</p>
+<p>期刊：Journal of machine Learning Research 3 (2003) 1157-1182</p>
+<h3 id="摘要">摘要</h3><p>变量与特征选择已经成为研究领域的热点，尤其当数据库中包含有几万到几十万个变量的时候。这些应用领域包括文字处理，基因组分析，以及组合化学。变量选择的目的有三个：提高预测机的预测表现，提供更快更有效的预测机，更好的理解目标数据生成的潜在过程。本文主旨在于：为如下问题提出更好的定义，包括目标函数，特征构造，特征排序，多变量特征选择，高效搜索，以及特征评估方法。</p>
+<h3 id="关键词">关键词</h3><p>略</p>
+<h2 id="1_简介">1 简介</h2><p>在1997年，当几篇关于变量与特征选择的文章发表的时候，只有很少的领域会用到多于40个特征的数据。如今已大不相同，在过去几年中，有关这个问题的研究探索了具有十几甚至上百万特征的数据(<em>注1</em>)。这些研究关注于这些问题中不相关的与荣誉的变量，并且通常具有相对少的训练样本。</p>
+<p>本文使用这个领域中特性鲜明的两个例子。一个是微阵列数据中的基因选择，另一个是文字分类。在基因选择问题中，变量是基因表达（<em>从DNA到蛋白质的过程叫基因表达(gene expression)——译者注</em>）与样本（例如组织活检）中mRNA的丰富度之间的相关系数。一个典型的问题是根据基因表达的“样式”来判断癌症。通常用于训练与测试的数据要少于100个（病人）。然而，原始数据中的变量可能在6000与600000之间。一些初步的filter（<em>多数人翻译成“过滤器”，这里不翻译了，是特征选择方法的一类——译者注</em>）可以将数量降至几千。由于mRNA的丰富度可能在不同的基因中具有不同数量级的规模，变量通常进行标准化处理。在文字分类问题中，文档被转换为“bag-of-words”(<em>词袋，通常不翻译，或简写为BoW——译者注</em>)，这是一个由单词出现频率组成的多维数组（通常进行标准化处理）。通常文档中具有十万数量级的单词，但在初始修剪过程中，去掉最多和最少频率的单词，可以将数量减少到15000。研究中通常使用包含5000至800000文档的数据库作为研究对象。典型问题包括将URL自动筛选到一个网络目录中，并检测垃圾邮件。可用的公开据库见表1。</p>
+<p>特征选择具有许多潜在的优点，实现数据可视化与数据解释，减少数据度量与存储要求，减少训练与使用次数，降低维度以改进预测的效果。有一些方法更注重于其中的某些方面，并且这也是本文与其他研究不同之处。本文重点研究构造与选择出能够有效构建预测机的特征集合。这与找到或排列出所有可能的相关变量相矛盾。选出最相关的特征通常并不是构建预测机的最好的方法，一部分原因是存在冗余的特征。相反，一个对构造预测机有用的特征集通常排除了许多冗余但是相关的特征。关于相关性v.s.有用性的讨论，以及相关性不同的定义，见Kohavi and John (1997) 与 Blum and Langley (1997) （<em>注2</em>）</p>
+<p>不同主题研究的深度，反映出覆盖这些主题论文的数量：有监督学习要比无监督学习研究的更广泛，分类问题比回归问题更常用来展示，并且只考虑矢量数据。（<em>文章每一部分的介绍略</em>）因为本文并不按照机器学习的工作流程来介绍，所以我们总结特征选择问题的步骤如下：</p>
+<ol>
+<li><strong>你具有相关领域知识吗？</strong>如果有，考虑构建更好的“相邻”特征集。</li>
+<li><strong>你的特征数量级相同吗？</strong>如果不是，考虑做标准化处理（<em>可以考虑映射到-1到1之间——译者注</em>）。</li>
+<li><strong>需要考虑特征之间的依赖关系吗？</strong>如果是，用构造连接特征或特征的乘积来拓展特征集，并根据电脑资源尽可能多的拓展。</li>
+<li><strong>需要剪裁输入变量吗？</strong>（例如，为了加速算法或便于数据理解）如果不是，构建无关联的特征或带权重的特征和</li>
+<li><strong>是否需要对每个特征单独评估？</strong>（例如，为了理解他们队系统的影响，或因为特征数量过多需要先进行过滤）如果是，使用特征排列算法；否则，采用任意方法得到基准结果（baseline results）。</li>
+<li><strong>是否需要指定预测机？</strong>如果不需要，停止算法。</li>
+<li><strong>是否需要考虑“脏”数据（包含无意义输入数据或噪音输出或错误的分类）？</strong>如果是，使用第五步得到的排列变量来检测奇异数据，检验或者抛弃这些数据。</li>
+<li><strong>你是否知道从哪开始选择？</strong>如果否，使用线性预测机。采用正向选择方法以及简单的终止条件，或者嵌入式l0-norm方法。作为对比，根据步骤5的排列，构建一个预测机的序列，并根据特征的排列顺序的训练预测机。如果能够使用更少的特征来构建相同甚至更好的预测机，那么可将该特征集应用在非线性预测机上。</li>
+<li><strong>你是否有新的方法，时间与计算资源，以及足够的例子？</strong>如果是，将你的新方法与其他特征选择方法对比，包括相关系数，反向选择与嵌入式方法。使用线性与非线性预测机。</li>
+<li><strong>你是否需要一个稳定的解决方案？</strong>如果是，将数据分成几份来多做几次分析。</li>
+</ol>
+<p><em>注1:</em> variable是指原始输入数据，而feature是指构造好的输入数据。当选择算法不冲突的时候，我们不区别这两者，例如，当经过预处理后的特征被明确的计算。有必要区分两者的情况例如某些核心方法中特征没有被明确的计算（explicitly computed）（见3.5节）。</p>
+<p><em>注2:</em> 两篇文章分别是</p>
+<p>R. Kohavi and G. John. Wrappers for feature selection. Artificial Intelligence, 97(1-2):273–324,<br>December 1997.</p>
+<p>A. Blum and P. Langley. Selection of relevant features and examples in machine learning. Artificial<br>Intelligence, 97(1-2):245–271, December 1997.</p>
+<h2 id="2_特征排序">2 特征排序</h2><p>许多特征选择算法都包含特征排序，作为主要或辅助的方法，原因在于其简单，可测量，以及广泛被证明的效果。许多论文中特征排列都是核心算法。特征排序对于构建预测机不是必须的。它的一个普遍的应用是在微序列分析领域，找到一组首选药物（<em>原文drug leads</em>）：一个排序标准被用来找出能区分患者与健康人的基因，这些基因可能包含“可用药”蛋白的编码，或者那些能够被用作药物的蛋白。关于药物的问题不在机器学习研究范围之内，因此我们这里只专注于预测机的学习。这里我们会讨论排序的法则，这个法则仅仅关注与某一个变量，而不考虑其他变量之间的影响。关联方法也包含在其中。同时，我们仅仅讨论有监督学习的情况。</p>
+<h3 id="2-1_方法与记法">2.1 方法与记法</h3><p>考虑具有m条数据的集合${x_k,y_k} (k=1,…m)$具有n个输入变量$x_{k,i}(i=1,…n)$与一个输出变量$y_k$。变量排序采用一个评分函数$S(i)$，根据$x_{k,i}$与$y_k$来计算其值。通过转换，我们假设分数高则表示特征更好，并且在排序中从高至低排列。为了能够使用特征排序来构建预测机，有交集的特征集被一步步的选出。</p>
+<p>根据Kohavi and John (1997)中的分类方法，变量排序属于filter方法：一个预处理的步骤，与预测机相独立。然而，在特殊的独立或正交的假定下，filter对于某个给定的预测机可能会具有更好的效果。例如，使用Fisher的判定（<em>注4</em>）来排列特征</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://zhaozongyuan.com/2015/11/04/AnIntroductionToVariableAndFeatureSelection/" data-title="【文献翻译】An Introduction To Variable And Feature Selection | Z-Zone" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/08/31/howtobuyPC/"  title="如何选购个人电脑">
+ <strong>下一篇：</strong><br/> 
+ <span>如何选购个人电脑
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/11/04/AnIntroductionToVariableAndFeatureSelection/" data-title="【文献翻译】An Introduction To Variable And Feature Selection" data-url="http://zhaozongyuan.com/2015/11/04/AnIntroductionToVariableAndFeatureSelection/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#标题：变量与特征选择的介绍"><span class="toc-number">1.</span> <span class="toc-text">标题：变量与特征选择的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#摘要"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键词"><span class="toc-number">1.2.</span> <span class="toc-text">关键词</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1_简介"><span class="toc-number">2.</span> <span class="toc-text">1 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2_特征排序"><span class="toc-number">3.</span> <span class="toc-text">2 特征排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1_方法与记法"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 方法与记法</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/中文/" title="中文">中文<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/github/" title="github">github<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/中文/" title="中文">中文<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Weka/" title="Weka">Weka<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Genetic-Algorithm/" title="Genetic Algorithm">Genetic Algorithm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/遗传算法/" title="遗传算法">遗传算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/建立/" title="建立">建立<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/入门/" title="入门">入门<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zongyuan Zhao <br/>
+			You are welcome to contact me by sending email to zzy198700@hotmail.com</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/zzhao3" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zzy198700@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Zongyuan Zhao">Zongyuan Zhao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zhaozongyuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
