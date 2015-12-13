@@ -4,29 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>pacman 主题优化 | Z-Zone</title>
+    <title>FSinWEKA | Z-Zone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Zongyuan Zhao">
     
 
     
-    <meta name="description" content="摘要本文讲述部分Pacman主题优化方法。部分内容来自于网络。详见参考文献部分。本文不会详细介绍Pacman主题，只是给技术小白们提供一部分主题优化的方法与思路。同时一些比较浅显的方法也不在这里介绍。
-补充：后改为jacman主题，所有方法在jacman主题下测试成功。jacman主题详情请见 如何使用jacman主题
-更换标题背景Pacman主题默认的标题背景是橙黄色的，非常好看，但为了追求个性">
+    <meta name="description" content="Weka中的特征选择方法CfsSubsetEvalM. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.
+ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pacman 主题优化">
-<meta property="og:url" content="http://zhaozongyuan.com/2014/08/05/changepacman/index.html">
+<meta property="og:title" content="FSinWEKA">
+<meta property="og:url" content="http://zhaozongyuan.com/2015/12/06/FSinWEKA/index.html">
 <meta property="og:site_name" content="Z-Zone">
-<meta property="og:description" content="摘要本文讲述部分Pacman主题优化方法。部分内容来自于网络。详见参考文献部分。本文不会详细介绍Pacman主题，只是给技术小白们提供一部分主题优化的方法与思路。同时一些比较浅显的方法也不在这里介绍。
-补充：后改为jacman主题，所有方法在jacman主题下测试成功。jacman主题详情请见 如何使用jacman主题
-更换标题背景Pacman主题默认的标题背景是橙黄色的，非常好看，但为了追求个性">
-<meta property="og:updated_time" content="2015-06-07T04:05:46.000Z">
+<meta property="og:description" content="Weka中的特征选择方法CfsSubsetEvalM. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.
+ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
+<meta property="og:updated_time" content="2015-12-06T07:04:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pacman 主题优化">
-<meta name="twitter:description" content="摘要本文讲述部分Pacman主题优化方法。部分内容来自于网络。详见参考文献部分。本文不会详细介绍Pacman主题，只是给技术小白们提供一部分主题优化的方法与思路。同时一些比较浅显的方法也不在这里介绍。
-补充：后改为jacman主题，所有方法在jacman主题下测试成功。jacman主题详情请见 如何使用jacman主题
-更换标题背景Pacman主题默认的标题背景是橙黄色的，非常好看，但为了追求个性">
+<meta name="twitter:title" content="FSinWEKA">
+<meta name="twitter:description" content="Weka中的特征选择方法CfsSubsetEvalM. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.
+ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 
     
     <link rel="alternative" href="/atom.xml" title="Z-Zone" type="application/atom+xml">
@@ -86,14 +83,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/08/05/changepacman/" title="pacman 主题优化" itemprop="url">pacman 主题优化</a>
+      <a href="/2015/12/06/FSinWEKA/" title="FSinWEKA" itemprop="url">FSinWEKA</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Zongyuan Zhao" target="_blank" itemprop="author">Zongyuan Zhao</a>
 		
   <p class="article-time">
-    <time datetime="2014-08-05T12:02:15.000Z" itemprop="datePublished"> Published 2014-08-05</time>
+    <time datetime="2015-12-06T06:58:45.000Z" itemprop="datePublished"> Published 2015-12-06</time>
     
   </p>
 </header>
@@ -102,52 +99,21 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更换标题背景"><span class="toc-number">2.</span> <span class="toc-text">更换标题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#置顶贴"><span class="toc-number">3.</span> <span class="toc-text">置顶贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义主页配色"><span class="toc-number">4.</span> <span class="toc-text">自定义主页配色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Weka中的特征选择方法"><span class="toc-number">1.</span> <span class="toc-text">Weka中的特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CfsSubsetEval"><span class="toc-number">1.1.</span> <span class="toc-text">CfsSubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsistencySubsetEval"><span class="toc-number">1.2.</span> <span class="toc-text">ConsistencySubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InfoGainAttributeEval"><span class="toc-number">1.3.</span> <span class="toc-text">InfoGainAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GainRatioAttributeEval"><span class="toc-number">1.4.</span> <span class="toc-text">GainRatioAttributeEval</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="摘要">摘要</h2><p>本文讲述部分Pacman主题优化方法。部分内容来自于网络。详见参考文献部分。<br>本文不会详细介绍Pacman主题，只是给技术小白们提供一部分主题优化的方法与思路。同时一些比较浅显的方法也不在这里介绍。</p>
-<p><strong>补充</strong>：后改为jacman主题，所有方法在jacman主题下测试成功。jacman主题详情请见 <a href="http://wuchong.me/jacman/" target="_blank" rel="external">如何使用jacman主题</a></p>
-<h2 id="更换标题背景">更换标题背景</h2><p>Pacman主题默认的标题背景是橙黄色的，非常好看，但为了追求个性化，我将其换成自己的图片。主要参考了[1]中的方法。</p>
-<p>首先给自己的图片放到<code>hexo\themes\pacman\source\img</code><br>中，我用了png格式的图片，1273X199，图片名称pb.png。未测试其他格式或大小，欢迎补充。</p>
-<p>修改<code>hexo\themes\pacman\_config.yml</code>。在Image底下添加语句</p>
-<pre><code><span class="attribute">background_img</span>: <span class="string">img/pb.png</span>
-</code></pre><p>保存之后，打开文件<code>hexo\themes\pacman\source\css\_base\variable.styl</code>在<code>//image</code> 下面添加</p>
-<pre><code><span class="attribute">background</span>-<span class="tag">img</span> = <span class="function"><span class="title">hexo-config</span><span class="params">(<span class="string">"background_img"</span>)</span></span>
-</code></pre><p>保存之后，打开文件<code>hexo\themes\pacman\source\css\_partial\header.styl</code>在第五行（可能具体行数有异）找到background，将次行改为</p>
-<pre><code><span class="attribute">background</span> <span class="function"><span class="title">url</span><span class="params">(root+background-img)</span></span>
-</code></pre><p>重新生成（hexo g）之后即可显示为自定义图片。</p>
-<p><strong>补充注意</strong>：这个方法在2014年亲测好用，但是在2015年6月重新测试的时候失效。经修改，在最后一步（文件<code>header.styl</code>）时，修改background 为</p>
-<pre><code><span class="attribute">background</span>: <span class="function"><span class="title">url</span><span class="params">(<span class="string">"/img/noise.png"</span>)</span></span>
-</code></pre><p>之后成功。测试其他文件时，发现似乎类似的导入图片方法都失效。原因未知。</p>
-<p><strong>再补充</strong>:<br>使用jacman主题时，该方法适用。</p>
-<h2 id="置顶贴">置顶贴</h2><p>由于hexo中博客的排列是按照博客里面的那个日期来的（其实就是生成博客的日期），因此想要置顶的话，只要给置顶贴的日期改到世界末日那天（比如9999年）即可。</p>
-<pre><code><span class="attribute">date</span>: <span class="string">9999-11-03 01:09:10</span>
-</code></pre><h2 id="自定义主页配色">自定义主页配色</h2><p>有的朋友很在乎字体、标记等的颜色，希望能够实现自我配置。颜色配置清单在刚才提到的那个文件<code>hexo\themes\pacman\source\css\_base\variable.styl</code>中。这里列出部分颜色的作用。</p>
-<pre><code><span class="comment">//Color</span>
-<span class="attribute">color</span>-<span class="attribute">background</span> = <span class="hexcolor">#dddddd</span><span class="comment">//大背景颜色</span>
-<span class="attribute">color</span>-<span class="attribute">font</span> = <span class="hexcolor">#817c7c</span><span class="comment">//博客文字颜色</span>
-<span class="attribute">color</span>-white = <span class="hexcolor">#ffffff</span>
-<span class="attribute">color</span>-blue = <span class="hexcolor">#2ca6cb</span><span class="comment">//标题颜色</span>
-<span class="attribute">color</span>-theme = <span class="hexcolor">#111111</span><span class="comment">//#ea6753主题颜色，鼠标悬停后高亮色</span>
-<span class="attribute">color</span>-<span class="attribute">font</span>-<span class="tag">nav</span> =<span class="hexcolor">#ffffff</span><span class="comment">//#E9CD4C鼠标悬停后字体颜色</span>
-<span class="attribute">color</span>-<span class="tag">section</span> = <span class="hexcolor">#fafafa</span><span class="comment">//博客背景色</span>
-<span class="attribute">color</span>-<span class="tag">footer</span> = <span class="hexcolor">#1f1f1f</span><span class="comment">//最下部颜色</span>
-<span class="attribute">color</span>-gray = <span class="hexcolor">#2E9AFE</span><span class="comment">//#CCC//鼠标悬停前，的颜色</span>
-<span class="attribute">color</span>-heading = <span class="hexcolor">#333333</span><span class="comment">//博客正文中的“标题”颜色</span>
-<span class="attribute">color</span>-<span class="tag">code</span> = <span class="hexcolor">#eee</span><span class="comment">//文章目录背景色</span>
-</code></pre><p>这里颜色是用HTML颜色代码来表示的，从000000（黑色）到ffffff（白色）来表示。具体如何计算这个值，以及寻找自己喜欢颜色的代码，可以在这个网站上来找到。</p>
-<p>高级一些的朋友，可以自己定义颜色，然后在hexo\themes\pacman\source\css\ _partial这个文件夹里的文件中，修改页面细节。顺便说一下，这个文件夹里的文件就是描绘页面的文件，更多的自定义配置都可以在这里面找到。</p>
-<h2 id="参考文献">参考文献</h2><p><a href="http://leebug38.github.io/2014/02/11/%E5%8D%9A%E5%AE%A2%E8%A3%85%E6%89%AE--pacman%E4%B8%BB%E9%A2%98/" target="_blank" rel="external">leebug的博客 博客装扮—Pacman主题</a></p>
+		<h2 id="Weka中的特征选择方法">Weka中的特征选择方法</h2><h3 id="CfsSubsetEval">CfsSubsetEval</h3><p>M. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.</p>
+<h3 id="ConsistencySubsetEval">ConsistencySubsetEval</h3><p>H. Liu, R. Setiono: A probabilistic approach to feature selection - A filter solution. In: 13th International Conference on Machine Learning, 319-327, 1996.</p>
+<p>Evaluates the worth of a subset of attributes by the level of consistency in the class values when the training instances are projected onto the subset of attributes.</p>
+<h3 id="InfoGainAttributeEval">InfoGainAttributeEval</h3><p>Evaluates the worth of an attribute by measuring the information gain with respect to the class.</p>
+<p>InfoGain(Class,Attribute) = H(Class) - H(Class | Attribute).</p>
+<h3 id="GainRatioAttributeEval">GainRatioAttributeEval</h3><p>Evaluates the worth of an attribute by measuring the gain ratio with respect to the class.</p>
+<p>GainR(Class, Attribute) = (H(Class) - H(Class | Attribute)) / H(Attribute).</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/中文/">中文</a>
-</div>
 
 
 </div>
@@ -156,7 +122,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://zhaozongyuan.com/2014/08/05/changepacman/" data-title="pacman 主题优化 | Z-Zone" data-tsina="null" class="share clearfix">
+	  <div data-url="http://zhaozongyuan.com/2015/12/06/FSinWEKA/" data-title="FSinWEKA | Z-Zone" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -170,18 +136,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/08/05/command/" title="利用Github建立hexo个人主页常用命令">
+ <a href="/2015/12/12/WekaJava2/" title="在Java中使用Weka">
   <strong>上一篇：</strong><br/>
   <span>
-  利用Github建立hexo个人主页常用命令</span>
+  在Java中使用Weka</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/08/05/mathjax/"  title="用Mathjax在Hexo中插入数学公式">
+<a href="/2015/11/04/AnIntroductionToVariableAndFeatureSelection/"  title="【文献翻译】An Introduction To Variable And Feature Selection">
  <strong>下一篇：</strong><br/> 
- <span>用Mathjax在Hexo中插入数学公式
+ <span>【文献翻译】An Introduction To Variable And Feature Selection
 </span>
 </a>
 </div>
@@ -190,7 +156,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2014/08/05/changepacman/" data-title="pacman 主题优化" data-url="http://zhaozongyuan.com/2014/08/05/changepacman/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/06/FSinWEKA/" data-title="FSinWEKA" data-url="http://zhaozongyuan.com/2015/12/06/FSinWEKA/"></div>
 </section>
 
 
@@ -200,7 +166,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更换标题背景"><span class="toc-number">2.</span> <span class="toc-text">更换标题背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#置顶贴"><span class="toc-number">3.</span> <span class="toc-text">置顶贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义主页配色"><span class="toc-number">4.</span> <span class="toc-text">自定义主页配色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Weka中的特征选择方法"><span class="toc-number">1.</span> <span class="toc-text">Weka中的特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CfsSubsetEval"><span class="toc-number">1.1.</span> <span class="toc-text">CfsSubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsistencySubsetEval"><span class="toc-number">1.2.</span> <span class="toc-text">ConsistencySubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InfoGainAttributeEval"><span class="toc-number">1.3.</span> <span class="toc-text">InfoGainAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GainRatioAttributeEval"><span class="toc-number">1.4.</span> <span class="toc-text">GainRatioAttributeEval</span></a></li></ol></li></ol>
  
   </div>
 

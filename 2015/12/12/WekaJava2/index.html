@@ -1,0 +1,520 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>在Java中使用Weka | Z-Zone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Zongyuan Zhao">
+    
+
+    
+    <meta name="description" content="摘要本文翻译自Use Weka in your Java code
+原文中的链接可能不翻译，但仍会链接到原始地址。部分内容为本人注释，不正确的地方请不吝赐教。
+如何在Java中引入Weka包，以及Weka中Instances的初步介绍，请见本人另一篇日志Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据
+数据ARFF文件对于3.5.5之前的版本，可以用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Java中使用Weka">
+<meta property="og:url" content="http://zhaozongyuan.com/2015/12/12/WekaJava2/index.html">
+<meta property="og:site_name" content="Z-Zone">
+<meta property="og:description" content="摘要本文翻译自Use Weka in your Java code
+原文中的链接可能不翻译，但仍会链接到原始地址。部分内容为本人注释，不正确的地方请不吝赐教。
+如何在Java中引入Weka包，以及Weka中Instances的初步介绍，请见本人另一篇日志Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据
+数据ARFF文件对于3.5.5之前的版本，可以用">
+<meta property="og:updated_time" content="2015-12-13T15:00:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Java中使用Weka">
+<meta name="twitter:description" content="摘要本文翻译自Use Weka in your Java code
+原文中的链接可能不翻译，但仍会链接到原始地址。部分内容为本人注释，不正确的地方请不吝赐教。
+如何在Java中引入Weka包，以及Weka中Instances的初步介绍，请见本人另一篇日志Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据
+数据ARFF文件对于3.5.5之前的版本，可以用">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Z-Zone" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/cool.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Z-Zone" title="Z-Zone"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Z-Zone">Z-Zone</a></h1>
+				<h2 class="blog-motto">Zongyuan’s Space</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About &amp; Contact</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:zhaozongyuan.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/12/WekaJava2/" title="在Java中使用Weka" itemprop="url">在Java中使用Weka</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Zongyuan Zhao" target="_blank" itemprop="author">Zongyuan Zhao</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-12T05:50:48.000Z" itemprop="datePublished"> Published 2015-12-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARFF文件"><span class="toc-number">2.1.</span> <span class="toc-text">ARFF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.2.</span> <span class="toc-text">数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选项控制"><span class="toc-number">3.</span> <span class="toc-text">选项控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器（Filter）"><span class="toc-number">4.</span> <span class="toc-text">过滤器（Filter）</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="摘要">摘要</h2><p>本文翻译自<a href="https://weka.wikispaces.com/Use+Weka+in+your+Java+code#Classifying instances" target="_blank" rel="external">Use Weka in your Java code</a></p>
+<p>原文中的链接可能不翻译，但仍会链接到原始地址。部分内容为本人注释，不正确的地方请不吝赐教。</p>
+<p>如何在Java中引入Weka包，以及Weka中Instances的初步介绍，请见本人另一篇日志<a href="http://zhaozongyuan.com/2014/08/06/rough_set_model_weka_install_and_read_data/">Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据</a></p>
+<h2 id="数据">数据</h2><h3 id="ARFF文件">ARFF文件</h3><p>对于3.5.5之前的版本，可以用以下代码读取arff文件</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> weka<span class="built_in">.</span>core<span class="built_in">.</span>Instances;</span><br><span class="line"><span class="keyword">import</span> java<span class="built_in">.</span>io<span class="built_in">.</span>BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java<span class="built_in">.</span>io<span class="built_in">.</span>FileReader;</span><br><span class="line"><span class="attribute">...</span></span><br><span class="line">BufferedReader reader <span class="subst">=</span> <span class="literal">new</span> BufferedReader(</span><br><span class="line">		<span class="literal">new</span> FileReader(<span class="string">"/some/where/data.arff"</span>));</span><br><span class="line">Instances <span class="built_in">data</span> <span class="subst">=</span> <span class="literal">new</span> Instances(reader);</span><br><span class="line">reader<span class="built_in">.</span>close();</span><br><span class="line"><span class="comment">// 设定分类的数据项</span></span><br><span class="line"><span class="built_in">data</span><span class="built_in">.</span>setClassIndex(<span class="built_in">data</span><span class="built_in">.</span>numAttributes() <span class="subst">-</span> <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>class index（分类索引）指的是分类任务中的目标数据项（即分类项）。在ARFF中默认为最后一项数据，这也是为什么将其设定为numAttributes-1 (因为index是从0开始，所以最后一项的index是<strong>数据项的总数减1</strong>)。Weka强制要求在调用Instances（数据表）对象的时候，必须设定class index。</p>
+<p>3.5.5之后的版本可以使用DataSource类，并且可读入的文件类型不限于ARFF。代码如下</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> weka<span class="built_in">.</span>core<span class="built_in">.</span>converters<span class="built_in">.</span>ConverterUtils<span class="built_in">.</span>DataSource;</span><br><span class="line"><span class="attribute">...</span></span><br><span class="line">DataSource source <span class="subst">=</span> <span class="literal">new</span> DataSource(<span class="string">"/some/where/data.arff"</span>);</span><br><span class="line">Instances <span class="built_in">data</span> <span class="subst">=</span> source<span class="built_in">.</span>getDataSet();</span><br><span class="line"><span class="comment">// setting class attribute if the data format does not provide this information</span></span><br><span class="line"><span class="comment">// For example, the XRFF format saves the class attribute information as well</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">data</span><span class="built_in">.</span>classIndex() <span class="subst">==</span> <span class="subst">-</span><span class="number">1</span>)</span><br><span class="line">  <span class="built_in">data</span><span class="built_in">.</span>setClassIndex(<span class="built_in">data</span><span class="built_in">.</span>numAttributes() <span class="subst">-</span> <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>译者注</strong> 针对ARFF文件可以使用另一种方法读取数据，即使用java<br> io与ArffLoader类的方法。代码如下</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"><span class="keyword">import</span> java.io.*;</span></span><br><span class="line"><span class="preprocessor"><span class="keyword">import</span> weka.core.*;</span></span><br><span class="line">File inputFile = <span class="keyword">new</span> File(<span class="string">"../data/credit21.arff"</span>);</span><br><span class="line">ArffLoader loader = <span class="keyword">new</span> ArffLoader();</span><br><span class="line">loader.setFile(inputFile);</span><br></pre></td></tr></table></figure>
+<h3 id="数据库">数据库</h3><p>从数据库中读取稍微复杂一点点，但也很简单（骗人吧？）首先，修改<a href="https://weka.wikispaces.com/Databases#Configuration%20files" target="_blank" rel="external">DatabaseUtils.props</a>文件来制定数据库连接。假定要连接到MySQL服务器，并且其已经运行在本地使用3306默认端口。MySQL的JDBC驱动名称为Connector/J。存储数据的数据库名称为some_database。由于只需要读取，因此可以匿名登陆。你的props文件必须包含以下代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jdbcDriver=org<span class="class">.gjt</span><span class="class">.mm</span><span class="class">.mysql</span><span class="class">.Driver</span></span><br><span class="line">jdbcURL=jdbc:mysql:<span class="comment">//localhost:3306/some_database</span></span><br></pre></td></tr></table></figure>
+<p>然后，在java中写入如下代码：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> weka.core.Instances;</span><br><span class="line"><span class="built_in">import</span> weka.experiment.InstanceQuery;</span><br><span class="line">...</span><br><span class="line">InstanceQuery query = new InstanceQuery<span class="params">()</span>;</span><br><span class="line">query.setUsername<span class="params">(<span class="string">"nobody"</span>)</span>;</span><br><span class="line">query.setPassword<span class="params">(<span class="string">""</span>)</span>;</span><br><span class="line">query.setQuery<span class="params">(<span class="string">"select * from whatsoever"</span>)</span>;</span><br><span class="line"><span class="comment">// You can declare that your data set is sparse</span></span><br><span class="line"><span class="comment">// query.setSparseData(true);</span></span><br><span class="line">Instances data = query.retrieveInstances<span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="选项控制">选项控制</h2><p>Weka中凡是实现（Implement）weka.core.OptionHandler接口的组合，例如分类器，聚合器，过滤器等，提供以下方法来设置与修改其功能选项：</p>
+<ul>
+<li>void setOptions(String[] options)</li>
+<li>String[] getOptions()</li>
+</ul>
+<p>设置方法如下</p>
+<p>手动构建一个字符串数组</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] <span class="keyword">options</span> = <span class="keyword">new</span> String[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">options</span>[<span class="number">0</span>] = <span class="string">"-R"</span>;</span><br><span class="line"><span class="keyword">options</span>[<span class="number">1</span>] = <span class="string">"1"</span>;</span><br></pre></td></tr></table></figure>
+<p>用单个命令行字符串与splitOptions方法</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String[] </span>options = weka.core.Utils.splitOptions(<span class="string">"-R 1"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>使用<a href="https://weka.wikispaces.com/file/view/OptionsToCode.java/82917163/OptionsToCode.java" target="_blank" rel="external">OptionsToCode.java</a>类来自动将命令行变成代码。</p>
+<p><strong>译者注</strong> 附一段实际代码。在数据表中的数字项转换为文字项。这里使用NumericToNominal过滤器（Filter），设定过滤器的功能选项。</p>
+<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">NumericToNominal convert= <span class="keyword">new</span> NumericToNominal();</span><br><span class="line"><span class="typename">String</span>[] options= <span class="keyword">new</span> <span class="typename">String</span>[<span class="number">2</span>];</span><br><span class="line">options[<span class="number">0</span>]=<span class="string">"-R"</span>;</span><br><span class="line">options[<span class="number">1</span>]=<span class="string">"1-2"</span>;  //<span class="keyword">range</span> <span class="keyword">of</span> variables <span class="keyword">to</span> make numeric</span><br><span class="line">//<span class="keyword">or</span> <span class="keyword">use</span> this instead. same <span class="keyword">function</span></span><br><span class="line">//<span class="typename">String</span>[] option = weka.core.Utils.splitOptions(<span class="string">"-R 1-2"</span>);</span><br><span class="line"></span><br><span class="line">//使用setOptions方法，将命令行字符串加载到过滤器中</span><br><span class="line">convert.setOptions(options);</span><br><span class="line"></span><br><span class="line">//加载分类器</span><br><span class="line">convert.setInputFormat(originalTrain);</span><br><span class="line">Instances newData=Filter.useFilter(originalTrain, convert);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="过滤器（Filter）">过滤器（Filter）</h2><p>在weka中，过滤器是指对数据的一个预处理过程，通常会删除或选出特定的数据或数据项。这里有时会不翻译。</p>
+<p>另外，区分Attribute（属性）与Instance（实例）。举例来说，Attribute就是数据表中数据的名称，比如“分数”，“颜色”等，有时也叫特征（feature）。而Instance则是数据表中的每一组数据，比如（20，4.2，1，红色）。另外，Weka中Instances指的是数据表，而少一个s则指的数据组，要注意区分。为了更明确的说明，本文大多数时候将不翻译Attribute和Instance，而将Instances翻译为数据表。</p>
+<p>过滤器有两类</p>
+<ul>
+<li>有监督与无监督： 是否考虑分类项数据</li>
+<li>基于数据项（Attribute）与基于例子（Instances）</li>
+</ul>
+<p>大多数filter都实现了OptionHandler接口，这也意味着你可以用字符串数组来设定命令。例如，如果你想删掉数据中的第一个attribute，你需要这个filter</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weka<span class="class">.filters</span><span class="class">.unsupervised</span><span class="class">.attribute</span><span class="class">.Remove</span></span><br></pre></td></tr></table></figure>
+<p>以及命令</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-R 1</span></span><br></pre></td></tr></table></figure>
+<p>如果你有一个数据表，叫做data，那么你可以用以下代码创建与应用filter</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import weka.core.Instances;</span><br><span class="line">import weka.filters.Filter;</span><br><span class="line">import weka.filters.unsupervised.attribute.Remove;</span><br><span class="line">...</span><br><span class="line">String[] <span class="keyword">options</span> = <span class="keyword">new</span> String[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">options</span>[<span class="number">0</span>] = <span class="string">"-R"</span>;// <span class="string">"range"</span></span><br><span class="line"><span class="keyword">options</span>[<span class="number">1</span>] = <span class="string">"1"</span>; // <span class="keyword">first</span> attribute</span><br><span class="line">Remove <span class="built_in">remove</span> = <span class="keyword">new</span> Remove();// <span class="keyword">new</span> instance of <span class="built_in">filter</span></span><br><span class="line"><span class="built_in">remove</span>.setOptions(<span class="keyword">options</span>); // <span class="keyword">set</span> <span class="keyword">options</span></span><br><span class="line"><span class="built_in">remove</span>.setInputFormat(data);// inform <span class="built_in">filter</span> about dataset **AFTER** setting <span class="keyword">options</span></span><br><span class="line">Instances newData = Filter.useFilter(data, <span class="built_in">remove</span>);// apply <span class="built_in">filter</span></span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://zhaozongyuan.com/2015/12/12/WekaJava2/" data-title="在Java中使用Weka | Z-Zone" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/12/06/FSinWEKA/"  title="FSinWEKA">
+ <strong>下一篇：</strong><br/> 
+ <span>FSinWEKA
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/12/WekaJava2/" data-title="在Java中使用Weka" data-url="http://zhaozongyuan.com/2015/12/12/WekaJava2/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARFF文件"><span class="toc-number">2.1.</span> <span class="toc-text">ARFF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.2.</span> <span class="toc-text">数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选项控制"><span class="toc-number">3.</span> <span class="toc-text">选项控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器（Filter）"><span class="toc-number">4.</span> <span class="toc-text">过滤器（Filter）</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">Categories</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/中文/" title="中文">中文<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/github/" title="github">github<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/中文/" title="中文">中文<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Weka/" title="Weka">Weka<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Genetic-Algorithm/" title="Genetic Algorithm">Genetic Algorithm<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/遗传算法/" title="遗传算法">遗传算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/建立/" title="建立">建立<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/入门/" title="入门">入门<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zongyuan Zhao <br/>
+			You are welcome to contact me by sending email to zzy198700@hotmail.com</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/zzhao3" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:zzy198700@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Zongyuan Zhao">Zongyuan Zhao</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zhaozongyuan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
