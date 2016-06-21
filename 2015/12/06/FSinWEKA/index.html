@@ -19,7 +19,7 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 <meta property="og:site_name" content="Z-Zone">
 <meta property="og:description" content="Weka中的特征选择方法CfsSubsetEvalM. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.
 ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
-<meta property="og:updated_time" content="2015-12-06T07:04:40.000Z">
+<meta property="og:updated_time" content="2015-12-22T13:27:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FSinWEKA">
 <meta name="twitter:description" content="Weka中的特征选择方法CfsSubsetEvalM. A. Hall (1998). Correlation-based Feature Subset Selection for Machine Learning. Hamilton, New Zealand.
@@ -99,7 +99,7 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Weka中的特征选择方法"><span class="toc-number">1.</span> <span class="toc-text">Weka中的特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CfsSubsetEval"><span class="toc-number">1.1.</span> <span class="toc-text">CfsSubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsistencySubsetEval"><span class="toc-number">1.2.</span> <span class="toc-text">ConsistencySubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InfoGainAttributeEval"><span class="toc-number">1.3.</span> <span class="toc-text">InfoGainAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GainRatioAttributeEval"><span class="toc-number">1.4.</span> <span class="toc-text">GainRatioAttributeEval</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Weka中的特征选择方法"><span class="toc-number">1.</span> <span class="toc-text">Weka中的特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CfsSubsetEval"><span class="toc-number">1.1.</span> <span class="toc-text">CfsSubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsistencySubsetEval"><span class="toc-number">1.2.</span> <span class="toc-text">ConsistencySubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InfoGainAttributeEval"><span class="toc-number">1.3.</span> <span class="toc-text">InfoGainAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GainRatioAttributeEval"><span class="toc-number">1.4.</span> <span class="toc-text">GainRatioAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#how_to_change_heap_size_in_Weka_under_MacOS"><span class="toc-number">1.5.</span> <span class="toc-text">how to change heap size in Weka under MacOS</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -110,6 +110,11 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 <p>InfoGain(Class,Attribute) = H(Class) - H(Class | Attribute).</p>
 <h3 id="GainRatioAttributeEval">GainRatioAttributeEval</h3><p>Evaluates the worth of an attribute by measuring the gain ratio with respect to the class.</p>
 <p>GainR(Class, Attribute) = (H(Class) - H(Class | Attribute)) / H(Attribute).</p>
+<h3 id="how_to_change_heap_size_in_Weka_under_MacOS">how to change heap size in Weka under MacOS</h3><p>Open up a terminal window and type: </p>
+<p>cd /Applications/weka-3-5-7.app/Contents </p>
+<p>Now type: </p>
+<p>open Info.plist </p>
+<p>This will start OSX’s Property List Editor application. Expand first<br>the “root” and then the “Java” entries in the list. Under  “Java” you<br>will find an entry called “VMOptions” with the value “-Xmx256M”. Edit<br>this (by double clicking on the value) and enter a higher value for<br>the heap size. </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -166,7 +171,7 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Weka中的特征选择方法"><span class="toc-number">1.</span> <span class="toc-text">Weka中的特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CfsSubsetEval"><span class="toc-number">1.1.</span> <span class="toc-text">CfsSubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsistencySubsetEval"><span class="toc-number">1.2.</span> <span class="toc-text">ConsistencySubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InfoGainAttributeEval"><span class="toc-number">1.3.</span> <span class="toc-text">InfoGainAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GainRatioAttributeEval"><span class="toc-number">1.4.</span> <span class="toc-text">GainRatioAttributeEval</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Weka中的特征选择方法"><span class="toc-number">1.</span> <span class="toc-text">Weka中的特征选择方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CfsSubsetEval"><span class="toc-number">1.1.</span> <span class="toc-text">CfsSubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsistencySubsetEval"><span class="toc-number">1.2.</span> <span class="toc-text">ConsistencySubsetEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InfoGainAttributeEval"><span class="toc-number">1.3.</span> <span class="toc-text">InfoGainAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GainRatioAttributeEval"><span class="toc-number">1.4.</span> <span class="toc-text">GainRatioAttributeEval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#how_to_change_heap_size_in_Weka_under_MacOS"><span class="toc-number">1.5.</span> <span class="toc-text">how to change heap size in Weka under MacOS</span></a></li></ol></li></ol>
  
   </div>
 
@@ -205,10 +210,6 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 			
 		
 			
-				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 			
 		
@@ -217,11 +218,15 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 			
 		
 			
-				<li><a href="/tags/Genetic-Algorithm/" title="Genetic Algorithm">Genetic Algorithm<sup>1</sup></a></li>
+				<li><a href="/tags/东欧-自驾-欧洲/" title="东欧 自驾 欧洲">东欧 自驾 欧洲<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/遗传算法/" title="遗传算法">遗传算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
 			
 		
 			
@@ -230,6 +235,10 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 		
 			
 				<li><a href="/tags/入门/" title="入门">入门<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Genetic-Algorithm/" title="Genetic Algorithm">Genetic Algorithm<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -272,7 +281,7 @@ ConsistencySubsetEvalH. Liu, R. Setiono: A probabilistic approach to">
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Zongyuan Zhao">Zongyuan Zhao</a>
 		

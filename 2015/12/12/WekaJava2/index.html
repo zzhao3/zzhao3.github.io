@@ -23,7 +23,7 @@
 原文中的链接可能不翻译，但仍会链接到原始地址。部分内容为本人注释，不正确的地方请不吝赐教。
 如何在Java中引入Weka包，以及Weka中Instances的初步介绍，请见本人另一篇日志Rough set model系列：1. Weka在elipse中的安装以及从arff中读取数据
 数据ARFF文件对于3.5.5之前的版本，可以用">
-<meta property="og:updated_time" content="2015-12-13T15:00:55.000Z">
+<meta property="og:updated_time" content="2015-12-17T08:32:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Java中使用Weka">
 <meta name="twitter:description" content="摘要本文翻译自Use Weka in your Java code
@@ -105,7 +105,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARFF文件"><span class="toc-number">2.1.</span> <span class="toc-text">ARFF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.2.</span> <span class="toc-text">数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选项控制"><span class="toc-number">3.</span> <span class="toc-text">选项控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器（Filter）"><span class="toc-number">4.</span> <span class="toc-text">过滤器（Filter）</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARFF文件"><span class="toc-number">2.1.</span> <span class="toc-text">ARFF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.2.</span> <span class="toc-text">数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选项控制"><span class="toc-number">3.</span> <span class="toc-text">选项控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器（Filter）"><span class="toc-number">4.</span> <span class="toc-text">过滤器（Filter）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步过滤器"><span class="toc-number">4.1.</span> <span class="toc-text">同步过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批过滤"><span class="toc-number">4.2.</span> <span class="toc-text">批过滤</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -148,7 +148,16 @@
 <p>以及命令</p>
 <figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-R 1</span></span><br></pre></td></tr></table></figure>
 <p>如果你有一个数据表，叫做data，那么你可以用以下代码创建与应用filter</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import weka.core.Instances;</span><br><span class="line">import weka.filters.Filter;</span><br><span class="line">import weka.filters.unsupervised.attribute.Remove;</span><br><span class="line">...</span><br><span class="line">String[] <span class="keyword">options</span> = <span class="keyword">new</span> String[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">options</span>[<span class="number">0</span>] = <span class="string">"-R"</span>;// <span class="string">"range"</span></span><br><span class="line"><span class="keyword">options</span>[<span class="number">1</span>] = <span class="string">"1"</span>; // <span class="keyword">first</span> attribute</span><br><span class="line">Remove <span class="built_in">remove</span> = <span class="keyword">new</span> Remove();// <span class="keyword">new</span> instance of <span class="built_in">filter</span></span><br><span class="line"><span class="built_in">remove</span>.setOptions(<span class="keyword">options</span>); // <span class="keyword">set</span> <span class="keyword">options</span></span><br><span class="line"><span class="built_in">remove</span>.setInputFormat(data);// inform <span class="built_in">filter</span> about dataset **AFTER** setting <span class="keyword">options</span></span><br><span class="line">Instances newData = Filter.useFilter(data, <span class="built_in">remove</span>);// apply <span class="built_in">filter</span></span><br></pre></td></tr></table></figure>  
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import weka.core.Instances;</span><br><span class="line">import weka.filters.Filter;</span><br><span class="line">import weka.filters.unsupervised.attribute.Remove;</span><br><span class="line">...</span><br><span class="line">String[] <span class="keyword">options</span> = <span class="keyword">new</span> String[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">options</span>[<span class="number">0</span>] = <span class="string">"-R"</span>;// <span class="string">"range"</span></span><br><span class="line"><span class="keyword">options</span>[<span class="number">1</span>] = <span class="string">"1"</span>; // <span class="keyword">first</span> attribute</span><br><span class="line">Remove <span class="built_in">remove</span> = <span class="keyword">new</span> Remove();// <span class="keyword">new</span> instance of <span class="built_in">filter</span></span><br><span class="line"><span class="built_in">remove</span>.setOptions(<span class="keyword">options</span>); // <span class="keyword">set</span> <span class="keyword">options</span></span><br><span class="line"><span class="built_in">remove</span>.setInputFormat(data);// inform <span class="built_in">filter</span> about dataset **AFTER** setting <span class="keyword">options</span></span><br><span class="line">Instances newData = Filter.useFilter(data, <span class="built_in">remove</span>);// apply <span class="built_in">filter</span></span><br></pre></td></tr></table></figure>
+<h3 id="同步过滤器">同步过滤器</h3><p>同步过滤器是指能够在训练模型过程中加载的过滤器，区别在于不需要在数据训练之前使用过滤器，而是将过滤器嵌入在模型之中。好处在于可以一次性定义好模型，而不需要在学习和预测中分别进行预处理，比较方便在以后自动的调用设定好的过滤器。下面是一个使用meta-classifier（可变分类器？），带有Remove过滤器与J48模型，目标是在数据中去掉第一列的ID。代码如下：</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> weka.classifiers.meta.FilteredClassifier;</span><br><span class="line"><span class="built_in">import</span> weka.classifiers.trees.J48;</span><br><span class="line"><span class="built_in">import</span> weka.filters.unsupervised.attribute.Remove;</span><br><span class="line">...</span><br><span class="line">Instances train = ...         <span class="comment">// from somewhere</span></span><br><span class="line">Instances test = ...          <span class="comment">// from somewhere</span></span><br><span class="line"><span class="comment">// filter</span></span><br><span class="line">Remove rm = new Remove<span class="params">()</span>;</span><br><span class="line">rm.setAttributeIndices<span class="params">(<span class="string">"1"</span>)</span>;  <span class="comment">// remove 1st attribute</span></span><br><span class="line"><span class="comment">// classifier</span></span><br><span class="line">J48 j48 = new J48<span class="params">()</span>;</span><br><span class="line">j48.setUnpruned<span class="params">(<span class="literal">true</span>)</span>;        <span class="comment">// using an unpruned J48</span></span><br><span class="line"><span class="comment">// meta-classifier</span></span><br><span class="line">FilteredClassifier fc = new FilteredClassifier<span class="params">()</span>;</span><br><span class="line">fc.setFilter<span class="params">(rm)</span>;</span><br><span class="line">fc.setClassifier<span class="params">(j48)</span>;</span><br><span class="line"><span class="comment">// train and make predictions</span></span><br><span class="line">fc.buildClassifier<span class="params">(train)</span>;</span><br><span class="line"><span class="keyword">for</span> <span class="params">(int i = <span class="number">0</span>; i &lt; test.numInstances<span class="params">()</span>; i++)</span> &#123;</span><br><span class="line">  double pred = fc.classifyInstance<span class="params">(test.instance<span class="params">(i)</span>)</span>;</span><br><span class="line">  System.out.print<span class="params">(<span class="string">"ID: "</span> + test.instance<span class="params">(i)</span>.value<span class="params">(<span class="number">0</span>)</span>)</span>;</span><br><span class="line">  System.out.print<span class="params">(<span class="string">", actual: "</span> + test.classAttribute<span class="params">()</span>.value<span class="params">(<span class="params">(int)</span> test.instance<span class="params">(i)</span>.classValue<span class="params">()</span>)</span>)</span>;</span><br><span class="line">  System.out.println<span class="params">(<span class="string">", predicted: "</span> + test.classAttribute<span class="params">()</span>.value<span class="params">(<span class="params">(int)</span> pred)</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其他自动过程详见：</p>
+<ul>
+<li><a href="http://weka.sourceforge.net/doc.dev/weka/clusterers/FilteredClusterer.html" target="_blank" rel="external">weka.clusterers.FilteredClusterer (since 3.5.4)</a></li>
+<li><a href="http://weka.sourceforge.net/doc.dev/weka/associations/FilteredAssociator.html" target="_blank" rel="external">weka.associations.FilteredAssociator (since 3.5.6)</a></li>
+</ul>
+<h3 id="批过滤">批过滤</h3><p>在命令行中，你可以用-b选项来指定第二输入/输出对，以便于用同样的filter处理另一组数据。有必要的话，如果你使用特征选择或标准化处理，否则你会得到不兼容的数据库。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -173,6 +182,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2015/12/12/EuropeTrip/" title="欧洲3.5国自驾12日游">
+  <strong>上一篇：</strong><br/>
+  <span>
+  欧洲3.5国自驾12日游</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2015/12/06/FSinWEKA/"  title="FSinWEKA">
@@ -196,7 +213,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARFF文件"><span class="toc-number">2.1.</span> <span class="toc-text">ARFF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.2.</span> <span class="toc-text">数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选项控制"><span class="toc-number">3.</span> <span class="toc-text">选项控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器（Filter）"><span class="toc-number">4.</span> <span class="toc-text">过滤器（Filter）</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARFF文件"><span class="toc-number">2.1.</span> <span class="toc-text">ARFF文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库"><span class="toc-number">2.2.</span> <span class="toc-text">数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选项控制"><span class="toc-number">3.</span> <span class="toc-text">选项控制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤器（Filter）"><span class="toc-number">4.</span> <span class="toc-text">过滤器（Filter）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步过滤器"><span class="toc-number">4.1.</span> <span class="toc-text">同步过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#批过滤"><span class="toc-number">4.2.</span> <span class="toc-text">批过滤</span></a></li></ol></li></ol>
  
   </div>
 
@@ -235,10 +252,6 @@
 			
 		
 			
-				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
 			
 		
@@ -247,11 +260,15 @@
 			
 		
 			
-				<li><a href="/tags/Genetic-Algorithm/" title="Genetic Algorithm">Genetic Algorithm<sup>1</sup></a></li>
+				<li><a href="/tags/东欧-自驾-欧洲/" title="东欧 自驾 欧洲">东欧 自驾 欧洲<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/遗传算法/" title="遗传算法">遗传算法<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/setup/" title="setup">setup<sup>1</sup></a></li>
 			
 		
 			
@@ -260,6 +277,10 @@
 		
 			
 				<li><a href="/tags/入门/" title="入门">入门<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Genetic-Algorithm/" title="Genetic Algorithm">Genetic Algorithm<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -302,7 +323,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
 		<a href="/about" target="_blank" title="Zongyuan Zhao">Zongyuan Zhao</a>
 		
